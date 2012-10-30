@@ -17,5 +17,6 @@ app.get('/topics/:name', topics.findByName);
 app.get('/feed/:name/:size', topics.getFeed);
 
 // start app
-app.listen(3000);
-log.info('Listening on port 3000');
+var port = process.env.PORT || 5000;
+app.listen(port);
+log.info('Listening on port ' + port);
