@@ -9,12 +9,22 @@ var mongo = require('mongodb'),
 	logger = require('../logger/logger');
 
 // module vars
-var Server = mongo.Server,
-	Db = mongo.Db,
-	BSON = mongo.BSONPure,
-	log = logger.getLogger(),
-	server = new Server('localhost', 27017, {auto_reconnect: true}),
-	db = new Db('topicsDB', server, {safe:true});
+var log = logger.getLogger(),
+	db;
+
+// mongodb uri
+var uri = process.env.MONGOLAB_URI || 'mongodb://localhost:27017/topicsDB';
+
+// connection to mongodb
+mongo.Db.connect (uri, function (err, database) { 
+	log.info('Connecting to the db...');
+    if (err) {
+		log.info('Error during connection. Aborting.');
+		process.exit(1);
+	}
+	log.info('Connected');
+	db = database
+});
 
 /**
  * Find all topics

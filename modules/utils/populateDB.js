@@ -78,9 +78,18 @@ function populateDB() {
          'http://www.planeteclipse.org/planet/rss20.xml'
 	]
  }];
-
- db.collection('topics', function(err, collection) {
-     collection.insert(topics, {safe:true}, function(err, result) {});
+ 
+ var mongo = require('mongodb');
+ 
+ //mongodb uri
+ var uri = process.env.MONGOLAB_URI || 'mongodb://localhost:27017/topicsDB';
+ 
+ mongo.Db.connect(uri, function(err, db) {
+	 var collection = new mongo.Collection(db, 'topics');
+	 db.collection('topics', function(err, collection) {
+	     collection.insert(topics, {safe:true}, function(err, result) {});
+	 });
  });
+ 
 
 };
