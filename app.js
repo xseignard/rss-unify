@@ -14,7 +14,7 @@ app.get('/', function(request, response) {
 
 app.get('/topics', topics.findAll);
 app.get('/topics/:name', topics.findByName);
-app.get('/feed/:name/:size', topics.getFeed);
+app.get('/feed/:name/:size?', topics.getFeed);
 
 // start app
 var port = process.env.PORT || 5000;
