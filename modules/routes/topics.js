@@ -13,7 +13,7 @@ var log = logger.getLogger(),
 	db;
 
 // mongodb uri
-var uri = process.env.MONGOLAB_URI || 'mongodb://localhost:27017/topicsDB';
+var uri = process.env.MONGOLAB_URI || 'mongodb://localhost:27017/topicsDB?safe=true';
 
 // connection to mongodb
 mongo.Db.connect (uri, function (err, database) { 
