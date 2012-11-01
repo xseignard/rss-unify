@@ -54,7 +54,7 @@ function findByName(req, res) {
     		res.status(404).send({error: 'Topic not found'});
     	}
     };
-    findTopicByName(name, callback);
+    return findTopicByName(name, callback);
 };
 
 /**
