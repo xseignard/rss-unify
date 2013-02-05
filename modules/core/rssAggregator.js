@@ -5,8 +5,9 @@ exports.aggregate = aggregate;
 var feedparser = require('feedparser'),
 	RSS = require('rss'),
 	async = require('async'),
-	redis = require('redis'),
-    client = redis.createClient(),
+	// redis url
+	REDIS_URL = process.env.REDISTOGO_URL || 'redis://localhost:6379',
+	redis = require('redis-url').connect(REDIS_URL),
 	// default number of feed items to render
 	NUMBER_OF_ITEMS = 20;
 
@@ -35,8 +36,8 @@ function aggregate(topic) {
 			// create the feed
 			var rssFeed = createAggregatedFeed(topic, items);
 			// remove previous cached version (if existing) and store the new one on redis
-			client.del(topic.name, redis.print);
-			client.set(topic.name, rssFeed, redis.print);
+			redis.del(topic.name, redis.print);
+			redis.set(topic.name, rssFeed, redis.print);
 		}
 	);
 }

@@ -9,7 +9,7 @@
 		"feedparser": "0.10.6",
 		"rss": "0.0.4",
 		"async": "0.1.22",
-		"redis": "0.8.2"
+		"redis-url": "0.1.x"
 	},
 	"engines": {
 		"node": "0.8.x",

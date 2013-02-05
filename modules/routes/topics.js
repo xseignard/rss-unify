@@ -6,8 +6,9 @@ exports.getFeed = getFeed;
 // requires
 var MongoClient = require('mongodb').MongoClient,
 	rssAggregator = require('../core/rssAggregator'),
-	redis = require('redis'),
-    client = redis.createClient();
+	// redis url
+	REDIS_URL = process.env.REDISTOGO_URL || 'redis://localhost:6379',
+	redis = require('redis-url').connect(REDIS_URL);
 
 // module vars
 var db;
@@ -68,7 +69,7 @@ function getFeed(req, res) {
 	// topic name
 	var name = req.params.name;
 	// get the topic feed from redis cache
-	client.get(name, function(err, feed) {
+	redis.get(name, function(err, feed) {
 		if (err || !feed) {
 	    	res.status(404).send({error: 'Feed/Topic not found'});
 	    }
