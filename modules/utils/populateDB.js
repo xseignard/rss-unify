@@ -68,6 +68,11 @@ var topics = [
 			name : 'eclipse',
 			description : 'eclipse platform feeds',
 			feeds : [ 'http://www.planeteclipse.org/planet/rss20.xml' ]
+		}, {
+			name : 'html5/js',
+			description : 'html5/js feeds',
+			feeds : [ 'pipes.yahoo.com/pipes/pipe.run?_id=647030be6aceb6d005c3775a1c19401c&_render=rss',
+			          'rss.badassjs.com']
 		} ];
 
 mongo.Db.connect(uri, function(err, db) {
