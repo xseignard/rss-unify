@@ -10,11 +10,11 @@ var uri = process.env.MONGOLAB_URI || 'mongodb://localhost:27017/topicsDB';
 
 /**
  * Cache the feeds on a regular given interval in hours
- * @param interval - the interval in hours
+ * @param interval - the interval in minutes
  */
 function cacheFeeds(interval) {
 	// the interval in milliseconds
-	var intervalInMillis = interval * 1000 * 3600;
+	var intervalInMillis = interval * 1000 * 60;
 	// first caching
 	cache();
 	// repeatedly call that to re-aggregate the feed

@@ -6,8 +6,8 @@ var express = require('express'),
 // module vars
 var app = express();
 	
-// start caching (updated every 2hours in this case)
-cache.cacheFeeds(2);
+// start caching (updated every 10mins in this case)
+cache.cacheFeeds(10);
 
 // routes
 app.get('/', topics.findAll);
