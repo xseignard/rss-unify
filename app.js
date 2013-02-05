@@ -1,22 +1,20 @@
 // requires
 var express = require('express'),
 	topics = require('./modules/routes/topics'),
-	logger = require('./modules/logger/logger');
+	cache = require('./modules/core/cache');
 
 // module vars
 var app = express();
-	log = logger.getLogger();
+	
+// start caching (updated every 2hours in this case)
+cache.cacheFeeds(2);
 
 // routes
-app.get('/', function(request, response) {
-	  response.send('Zboub');
-});
-
-app.get('/topics', topics.findAll);
-app.get('/topics/:name', topics.findByName);
-app.get('/feed/:name/:size?', topics.getFeed);
+app.get('/', topics.findAll);
+app.get('/:name', topics.findByName);
+app.get('/:name/rss', topics.getFeed);
 
 // start app
 var port = process.env.PORT || 5000;
 app.listen(port);
-log.info('Listening on port ' + port);
+console.log('Listening on port ' + port);

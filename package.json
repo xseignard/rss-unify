@@ -5,11 +5,11 @@
 	"private": true,
 	"dependencies": {
 		"express": "3.x",
-		"mongodb": "1.1.11",
-		"winston": "0.6.2",
+		"mongodb": "1.2.0",
 		"feedparser": "0.10.6",
 		"rss": "0.0.4",
-		"async": "0.1.22"
+		"async": "0.1.22",
+		"redis": "0.8.2"
 	},
 	"engines": {
 		"node": "0.8.x",

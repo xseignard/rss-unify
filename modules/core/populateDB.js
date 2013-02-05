@@ -1,13 +1,13 @@
 // require
-var mongo = require('mongodb');
+var MongoClient = require('mongodb').MongoClient;
 
 // mongodb uri
-var uri = process.env.MONGOLAB_URI || 'mongodb://localhost:27017/topicsDB?safe=true';
+var uri = process.env.MONGOLAB_URI || 'mongodb://localhost:27017/topicsDB';
 
 var topics = [
 		{
-			name : "mde",
-			description : "model driven engineering",
+			name : 'mde',
+			description : 'model driven engineering',
 			feeds : [
 					'http://tronprog.blogspot.com/feeds/posts/default?alt=rss',
 					'http://www.insighteck.com/blog/?feed=rss2',
@@ -61,29 +61,30 @@ var topics = [
 					'http://feeds.feedburner.com/aspectize',
 					'http://blogs.msdn.com/jmprieur/rss.xml' ]
 		}, {
-			name : 'node.js',
-			description : 'node.js feeds',
-			feeds : [ 'http://howtonode.org/feed.xml' ]
-		}, {
 			name : 'eclipse',
 			description : 'eclipse platform feeds',
 			feeds : [ 'http://www.planeteclipse.org/planet/rss20.xml' ]
 		}, {
-			name : 'html5/js',
+			name : 'js',
 			description : 'html5/js feeds',
-			feeds : [ 'pipes.yahoo.com/pipes/pipe.run?_id=647030be6aceb6d005c3775a1c19401c&_render=rss',
-			          'rss.badassjs.com']
+			feeds : [ 'http://howtonode.org/feed.xml',
+			          'http://feeds.feedburner.com/html5rocks',
+			          'http://rss.badassjs.com']
 		} ];
 
-mongo.Db.connect(uri, function(err, db) {
-	var collection = new mongo.Collection(db, 'topics');
-	collection.insert(topics, {safe : true}, 
+MongoClient.connect(uri, function(err, db) {
+	db.collection('topics', function(err, collection) {		
+		// remove the collection (if existing)
+		collection.remove({},function(err, removed){});
+		// create it
+		collection.insert(topics, {safe : true}, 
 			function(err, result) {
 				if (err) {
-					console.log('something went wrong');
+					console.log('Something went wrong');
 					process.exit(1);
 				}
-				console.log('ok');
+				console.log('Done');
 				process.exit(0);
 			});
+	});
 });

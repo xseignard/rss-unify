@@ -4,25 +4,25 @@ exports.findByName = findByName;
 exports.getFeed = getFeed;
 
 // requires
-var mongo = require('mongodb'),
-	rssAggregator = require('../utils/rssAggregator'),
-	logger = require('../logger/logger');
+var MongoClient = require('mongodb').MongoClient,
+	rssAggregator = require('../core/rssAggregator'),
+	redis = require('redis'),
+    client = redis.createClient();
 
 // module vars
-var log = logger.getLogger(),
-	db;
+var db;
 
 // mongodb uri
-var uri = process.env.MONGOLAB_URI || 'mongodb://localhost:27017/topicsDB?safe=true';
+var uri = process.env.MONGOLAB_URI || 'mongodb://localhost:27017/topicsDB';
 
 // connection to mongodb
-mongo.Db.connect (uri, function (err, database) { 
-	log.info('Connecting to the db...');
+MongoClient.connect(uri, function(err, database) {
+	console.log('Connecting to the db...');
     if (err) {
-		log.info('Error during connection. Aborting.');
+    	console.log('Error during connection. Aborting.');
 		process.exit(1);
 	}
-	log.info('Connected');
+	console.log('Connected');
 	db = database
 });
 
@@ -45,8 +45,10 @@ function findAll(req, res) {
  * @param res - the response
  */
 function findByName(req, res) {
-    var name = req.params.name;
-    var callback = function(err, topic) {
+    // topic name
+	var name = req.params.name;
+    // call when the topic has been searched in the db
+	var callback = function(err, topic) {
     	if (topic) {
     		res.send(topic);
     	}
@@ -63,40 +65,26 @@ function findByName(req, res) {
  * @param res - the response
  */
 function getFeed(req, res) {
-	// 1 minute timeout to get enough time for the request to be processed
-	req.connection.setTimeout(60*1000); 	
-	
+	// topic name
 	var name = req.params.name;
-	var callback = function(err, topic) {
-    	// if the topic has been found
-		if (topic) {
-			// aggregate the corresponding feeds
-    		rssAggregator.aggregate(topic, 
-    			function(err, rssFeed) {
-    				if (err) {
-	    				res.status(500).send({error: 'Error while creating feed'});
-	    			}
-	    			else {
-	    				res.send(rssFeed);
-	    			}
-	    		},
-	    		req);
-    	}
-    	else {
-    		res.status(404).send({error: 'Topic not found'});
-    	}
-    };
-    findTopicByName(name, callback);
+	// get the topic feed from redis cache
+	client.get(name, function(err, feed) {
+		if (err || !feed) {
+	    	res.status(404).send({error: 'Feed/Topic not found'});
+	    }
+	    else {
+	    	res.send(feed);
+	    }
+	});
 }
 
 /**
  * Convenient method to get a topic by name.
- * 
  * @param name - the name of the topic to find
  * @param callback - callback that will handle the requested topic (or the lack of it).
  */
 function findTopicByName(name, callback) {
-	log.info('Retrieving name: ' + name);
+	console.log('Retrieving name: ' + name);
     db.collection('topics', function(err, collection) {
         collection.findOne({'name':name}, callback);
     });
