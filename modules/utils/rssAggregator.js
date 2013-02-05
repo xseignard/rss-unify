@@ -2,7 +2,7 @@
 exports.aggregate = aggregate;
 
 // module vars
-var feedparser = require('feedparser')
+var feedparser = require('feedparser'),
 	RSS = require('rss'),
 	async = require('async'),
 	// array of all articles from all feeds
