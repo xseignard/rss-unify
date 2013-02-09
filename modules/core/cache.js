@@ -28,7 +28,7 @@ function cache() {
 	MongoClient.connect(uri, function(err, db) {
 	  console.log('Connecting to the db...');
 	    if (err) {
-	    	console.log('Error during connection. Aborting.');
+			console.log('Error during connection. Aborting.');
 			process.exit(1);
 		}
 	    console.log('Connected');
