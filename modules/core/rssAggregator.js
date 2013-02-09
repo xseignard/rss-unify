@@ -54,7 +54,8 @@ function parseAndProcessFeed(feedUrl, items, callback) {
 	var now = new Date();
 	var item;
 	// when parsing is finished, iterate over articles to store them in an array of all articles of all streams
-	feedparser.parseUrl(feedUrl).on('complete', function onComplete(meta, articles) {
+	feedparser.parseUrl(feedUrl)
+	.on('complete', function onComplete(meta, articles) {
 		for (var i in articles) {
 			// some people put a future date as the pubDate of their articles to stay on top of aggregated feeds, fuck them
 			if (now > Date.parse(articles[i].date)) {
@@ -62,6 +63,11 @@ function parseAndProcessFeed(feedUrl, items, callback) {
 			}
 		}
 		// tell async that this parse and process is finished
+		callback();
+	})
+	//error handling
+	.on('error', function onError(error) {
+		// do nothing
 		callback();
 	});
 }
