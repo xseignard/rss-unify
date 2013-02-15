@@ -1,14 +1,14 @@
 // requires
 var app = require('express')(),
 	// mongo
-	MONGO_URL = require('./modules/conf/conf').MONGO_URL,
+	MONGO_URL = require('./lib/conf/conf').MONGO_URL,
 	MongoClient = require('mongodb').MongoClient,
 	//redis
-	REDIS_URL = require('./modules/conf/conf').REDIS_URL,
+	REDIS_URL = require('./lib/conf/conf').REDIS_URL,
 	redis = require('redis-url').connect(REDIS_URL),
 	// modules
-	TopicsRoutes = require('./modules/routes/topicsRoutes'),
-	Cache = require('./modules/core/cache');
+	TopicsRoutes = require('./lib/routes/topicsRoutes'),
+	Cache = require('./lib/core/cache');
 	
 	
 // get the db connection

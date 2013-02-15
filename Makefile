@@ -4,8 +4,8 @@ test:
 	@./node_modules/.bin/mocha -R spec $(TESTS)
 
 coverage:
-	jscoverage --no-highlight modules modules-cov
+	jscoverage --no-highlight lib lib-cov
 	TEST_COV=1 mocha -R html-cov $(TESTS) > coverage.html
-	rm -rf modules-cov
+	rm -rf lib-cov
 
 .PHONY: test coverage

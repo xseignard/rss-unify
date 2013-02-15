@@ -1,4 +1,4 @@
-var libpath = process.env.TEST_COV ? 'modules-cov' : 'modules',
+var libpath = process.env.TEST_COV ? 'lib-cov' : 'lib',
     assert = require('assert'),
 	Cache = require('../../'+ libpath +'/core/cache');
 
