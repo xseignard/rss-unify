@@ -1,0 +1,20 @@
+{
+	"formatter": {
+		"js": {
+			"indent_size": 1,
+			"indent_char": "\t"
+		}
+	},
+	"jshint": {
+		"global": [
+			"define", 
+			"require", 
+			"console", 
+			"window", 
+			"__dirname", 
+			"process", 
+			"module",
+			"exports"
+			]
+	}
+}

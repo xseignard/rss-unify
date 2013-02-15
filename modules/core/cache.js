@@ -15,7 +15,7 @@ Cache.cacheFeeds = function(interval) {
 	// first caching
 	Cache.cache();
 	// repeatedly call that to re-aggregate the feed
-	setInterval(cache, intervalInMillis);
+	setInterval(Cache.cache, intervalInMillis);
 };
 
 /**
@@ -42,4 +42,4 @@ Cache.cache = function() {
 };
 
 // module exports
-modules.exports = Cache;
+module.exports = Cache;
