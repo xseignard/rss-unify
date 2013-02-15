@@ -2,11 +2,8 @@
 var feedparser = require('feedparser'),
 	RSS = require('rss'),
 	async = require('async'),
-	// redis url
-	REDIS_URL = process.env.REDISTOGO_URL || 'redis://localhost:6379',
 	// app URL
 	URL = process.env.URL || 'http://localhost:8080/',
-	redis = require('redis-url').connect(REDIS_URL),
 	// default number of feed items to render
 	NUMBER_OF_ITEMS = 20;
 
@@ -15,8 +12,9 @@ var RssAggregator = {};
 /**
  * Agreggate the feeds of the given topic
  * @param topic - the topic to aggregate
+ * @param callback - the function that will deal with the feed
  */
-RssAggregator.aggregate = function(topic) {	
+RssAggregator.aggregate = function(topic, callback) {	
 	// array of all articles from all feeds of a given topic
 	var items = [];
 	// async fetch of each feed
@@ -35,9 +33,7 @@ RssAggregator.aggregate = function(topic) {
 			});
 			// create the feed
 			var rssFeed = RssAggregator.createAggregatedFeed(topic, items).xml();
-			// remove previous cached version (if existing) and store the new one on redis
-			redis.del(topic.name, redis.print);
-			redis.set(topic.name, rssFeed, redis.print);
+			callback(topic.name, rssFeed);
 		}
 	);
 };
@@ -91,6 +87,7 @@ RssAggregator.createAggregatedFeed = function(topic, items) {
 	if(items.length < numberOfItems) {
 		numberOfItems = items.length;
 	}
+			
 	// get the 'numberOfItems' first rss items to create the feed
 	for (var i=0; i<numberOfItems; i++) {
 		feed.item({

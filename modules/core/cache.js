@@ -1,7 +1,11 @@
 // module vars
 var RssAggregator = require('./rssAggregator'),
 	MongoClient = require('mongodb').MongoClient,
-	uri = process.env.MONGOLAB_URI || 'mongodb://localhost:27017/topicsDB';
+	// redis url
+	REDIS_URL = process.env.REDISTOGO_URL || 'redis://localhost:6379',
+	// redis client
+	redis = require('redis-url').connect(REDIS_URL),
+	MONGO_URL = process.env.MONGOLAB_URI || 'mongodb://localhost:27017/topicsDB';
 
 var Cache = {};
 
@@ -22,7 +26,7 @@ Cache.cacheFeeds = function(interval) {
  * Cache feeds
  */
 Cache.cache = function() {
-	MongoClient.connect(uri, function(err, db) {
+	MongoClient.connect(MONGO_URL, function(err, db) {
 	  console.log('Connecting to the db...');
 	    if (err) {
 			console.log('Error during connection. Aborting.');
@@ -31,9 +35,15 @@ Cache.cache = function() {
 	    console.log('Connected');
 		db.collection('topics', function(err, collection) {		
 			collection.find().toArray(function(err,items) {
+				// callback that deals with redis caching
+				var callback = function(key, feed) {
+					// remove previous cached version (if existing) and store the new one on redis
+					redis.del(key, redis.print);
+					redis.set(key, feed, redis.print);
+				};
 				// cache aggregated feed for each topic
 				for(var i=0; i<items.length; i++) {
-					RssAggregator.aggregate(items[i]);
+					RssAggregator.aggregate(items[i], callback);
 				}
 				db.close();
 			});

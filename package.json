@@ -12,7 +12,8 @@
 		"redis-url": "0.1.x"
 	},
 	"devDependencies": {
-		"mocha": "1.8.x"
+		"mocha": "1.8.x",
+		"redis-mock": "0.1.x"
 	},
 	"scripts": {
 		"test": "make test"

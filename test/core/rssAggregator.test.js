@@ -11,6 +11,16 @@ var testTopic = {
 	
 describe('RssAggregator', function() {
   
+	describe('#aggregate()', function() {
+		it('should call a callback', function(done) {
+			var callback = function(key, feed) {
+				assert.equal(testTopic.name, key);
+				done();
+			};
+			RssAggregator.aggregate(testTopic, callback);
+		});
+	});
+	
 	describe('#createAggregatedFeed()', function() {
 		it('should return a rss feed with the right meta', function() {
 			var feed = RssAggregator.createAggregatedFeed(testTopic, []);
