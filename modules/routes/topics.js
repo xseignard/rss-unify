@@ -5,7 +5,6 @@ exports.getFeed = getFeed;
 
 // requires
 var MongoClient = require('mongodb').MongoClient,
-	rssAggregator = require('../core/rssAggregator'),
 	// redis url
 	REDIS_URL = process.env.REDISTOGO_URL || 'redis://localhost:6379',
 	redis = require('redis-url').connect(REDIS_URL);
@@ -20,11 +19,11 @@ var uri = process.env.MONGOLAB_URI || 'mongodb://localhost:27017/topicsDB';
 MongoClient.connect(uri, function(err, database) {
 	console.log('Connecting to the db...');
     if (err) {
-    	console.log('Error during connection. Aborting.');
+		console.log('Error during connection. Aborting.');
 		process.exit(1);
 	}
 	console.log('Connected');
-	db = database
+	db = database;
 });
 
 /**
@@ -38,7 +37,7 @@ function findAll(req, res) {
 			res.send(items);
 		});
 	});
-};
+}
 
 /**
  * Find a topic by its name
@@ -50,15 +49,15 @@ function findByName(req, res) {
 	var name = req.params.name;
     // call when the topic has been searched in the db
 	var callback = function(err, topic) {
-    	if (topic) {
-    		res.send(topic);
-    	}
-    	else {
-    		res.status(404).send({error: 'Topic not found'});
-    	}
-    };
-    return findTopicByName(name, callback);
-};
+		if (topic) {
+			res.send(topic);
+		}
+		else {
+			res.status(404).send({error: 'Topic not found'});
+		}
+	};
+	return findTopicByName(name, callback);
+}
 
 /**
  * Get the aggregated feed
@@ -71,10 +70,10 @@ function getFeed(req, res) {
 	// get the topic feed from redis cache
 	redis.get(name, function(err, feed) {
 		if (err || !feed) {
-	    	res.status(404).send({error: 'Feed/Topic not found'});
+			res.status(404).send({error: 'Feed/Topic not found'});
 	    }
 	    else {
-	    	res.send(feed);
+			res.send(feed);
 	    }
 	});
 }

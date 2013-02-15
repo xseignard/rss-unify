@@ -1,6 +1,3 @@
-// module exports
-exports.aggregate = aggregate;
-
 // module vars
 var feedparser = require('feedparser'),
 	RSS = require('rss'),
@@ -13,12 +10,13 @@ var feedparser = require('feedparser'),
 	// default number of feed items to render
 	NUMBER_OF_ITEMS = 20;
 
+var RssAggregator = {};
 
 /**
  * Agreggate the feeds of the given topic
  * @param topic - the topic to aggregate
  */
-function aggregate(topic) {	
+RssAggregator.aggregate = function(topic) {	
 	// array of all articles from all feeds of a given topic
 	var items = [];
 	// async fetch of each feed
@@ -27,7 +25,7 @@ function aggregate(topic) {
 		topic.feeds,
 		// function applied to each item of the array
 		function(feedUrl, callback) {
-			parseAndProcessFeed(feedUrl, items, callback);
+			RssAggregator.parseAndProcessFeed(feedUrl, items, callback);
 		},
 		// called after all iteration are done, or when an error occurs
 		function(err) {
@@ -36,13 +34,13 @@ function aggregate(topic) {
 			    return (Date.parse(b.date) - Date.parse(a.date));
 			});
 			// create the feed
-			var rssFeed = createAggregatedFeed(topic, items);
+			var rssFeed = RssAggregator.createAggregatedFeed(topic, items).xml();
 			// remove previous cached version (if existing) and store the new one on redis
 			redis.del(topic.name, redis.print);
 			redis.set(topic.name, rssFeed, redis.print);
 		}
 	);
-}
+};
 
 /**
  * Parse and process a feed
@@ -50,7 +48,7 @@ function aggregate(topic) {
  * @param items - the array of rss items to aggregate
  * @param callback - the callback which is called to indicate async lib that the parsing of this feed is done
  */
-function parseAndProcessFeed(feedUrl, items, callback) {
+RssAggregator.parseAndProcessFeed = function(feedUrl, items, callback) {
 	var now = new Date();
 	var item;
 	// when parsing is finished, iterate over articles to store them in an array of all articles of all streams
@@ -70,15 +68,15 @@ function parseAndProcessFeed(feedUrl, items, callback) {
 		// do nothing
 		callback();
 	});
-}
+};
 
 /**
  * Create the aggregated feed
  * @param topic - the topic document of the searched feed
  * @param items - the array of rss items to aggregate
- * @returns the xml representation of the aggregated feed
+ * @returns the object representation of the aggregated feed
  */
-function createAggregatedFeed(topic, items) {
+RssAggregator.createAggregatedFeed = function(topic, items) {
 	// create the feed
 	var feed = new RSS({
 		title: 'Aggregated feed about ' + topic.name,
@@ -96,26 +94,29 @@ function createAggregatedFeed(topic, items) {
 	// get the 'numberOfItems' first rss items to create the feed
 	for (var i=0; i<numberOfItems; i++) {
 		feed.item({
-			title:  processProperty(items[i].title),
-			description: processProperty(items[i].summary),
-			url: processProperty(items[i].link), 
-			author: processProperty(items[i].author), 
-			date: processProperty(items[i].date)
+			title:  RssAggregator.processProperty(items[i].title),
+			description: RssAggregator.processProperty(items[i].summary),
+			url: RssAggregator.processProperty(items[i].link), 
+			author: RssAggregator.processProperty(items[i].author), 
+			date: RssAggregator.processProperty(items[i].date)
 		});
 	}
-	// return the xml feed
-	return feed.xml();
-}
+	// return the feed object
+	return feed;
+};
 
 /**
  * Convenience function to process missing properties
  * @return the property if it exists, or 'missing'
  */
-function processProperty(property) {
+RssAggregator.processProperty = function(property) {
 	if (property) {
 		return property;
 	}
 	else {
 		return 'missing';
 	}
-}
+};
+
+// module exports
+module.exports = RssAggregator;

@@ -2,7 +2,7 @@
 exports.cacheFeeds = cacheFeeds;
 
 // module vars
-var rssAggregator = require('./rssAggregator'),
+var RssAggregator = require('./rssAggregator'),
 	MongoClient = require('mongodb').MongoClient;
 
 // mongodb uri
@@ -36,7 +36,7 @@ function cache() {
 			collection.find().toArray(function(err,items) {
 				// cache aggregated feed for each topic
 				for(var i=0; i<items.length; i++) {
-					rssAggregator.aggregate(items[i]);
+					RssAggregator.aggregate(items[i]);
 				}
 				db.close();
 			});

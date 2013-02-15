@@ -11,6 +11,12 @@
 		"async": "0.1.22",
 		"redis-url": "0.1.x"
 	},
+	"devDependencies": {
+		"mocha": "1.8.x"
+	},
+	"scripts": {
+		"test": "make test"
+	},
 	"engines": {
 		"node": "0.8.x",
 		"npm": "1.1.x"
