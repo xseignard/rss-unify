@@ -1,13 +1,13 @@
 // requires
 var express = require('express'),
 	topics = require('./modules/routes/topics'),
-	cache = require('./modules/core/cache');
+	Cache = require('./modules/core/cache');
 
 // module vars
 var app = express();
 	
 // start caching (updated every 10mins in this case)
-cache.cacheFeeds(10);
+Cache.cacheFeeds(10);
 
 // routes
 app.get('/', topics.findAll);

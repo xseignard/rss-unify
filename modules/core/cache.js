@@ -1,30 +1,27 @@
-// module exports
-exports.cacheFeeds = cacheFeeds;
-
 // module vars
 var RssAggregator = require('./rssAggregator'),
-	MongoClient = require('mongodb').MongoClient;
+	MongoClient = require('mongodb').MongoClient,
+	uri = process.env.MONGOLAB_URI || 'mongodb://localhost:27017/topicsDB';
 
-// mongodb uri
-var uri = process.env.MONGOLAB_URI || 'mongodb://localhost:27017/topicsDB';
+var Cache = {};
 
 /**
  * Cache the feeds on a regular given interval in hours
  * @param interval - the interval in minutes
  */
-function cacheFeeds(interval) {
+Cache.cacheFeeds = function(interval) {
 	// the interval in milliseconds
 	var intervalInMillis = interval * 1000 * 60;
 	// first caching
-	cache();
+	Cache.cache();
 	// repeatedly call that to re-aggregate the feed
 	setInterval(cache, intervalInMillis);
-}
+};
 
 /**
  * Cache feeds
  */
-function cache() {
+Cache.cache = function() {
 	MongoClient.connect(uri, function(err, db) {
 	  console.log('Connecting to the db...');
 	    if (err) {
@@ -42,4 +39,7 @@ function cache() {
 			});
 		});
 	});
-}
+};
+
+// module exports
+modules.exports = Cache;
