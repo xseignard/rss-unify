@@ -2,9 +2,7 @@
 var MongoClient = require('mongodb').MongoClient;
 
 // mongodb uri
-var uri = process.env.MONGOLAB_URI || 'mongodb://localhost:27017/topicsDB';
-
-var MONGO_URI = 'mongodb://heroku_app8847953:qqgodpict4fbuj234verfa4s5i@ds041347.mongolab.com:41347/heroku_app8847953';
+var uri = require('../conf/conf').MONGO_URL;
 
 var topics = [
 		{
@@ -74,7 +72,7 @@ var topics = [
 			          'http://rss.badassjs.com']
 		} ];
 
-MongoClient.connect(MONGO_URI, function(err, db) {
+MongoClient.connect(uri, function(err, db) {
 	db.collection('topics', function(err, collection) {		
 		// remove the collection (if existing)
 		collection.remove({},function(err, removed){});

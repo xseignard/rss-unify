@@ -14,7 +14,9 @@
 			"__dirname", 
 			"process", 
 			"module",
-			"exports"
+			"exports",
+			"describe",
+			"it"
 			]
 	}
 }
