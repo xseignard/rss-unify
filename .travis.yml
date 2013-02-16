@@ -1,3 +1,20 @@
+--- 
 language: node_js
-node_js:
-  - 0.8
+env: 
+  global: 
+  - secure: |-
+      U951/clicU/IsOoTXQPtcmDs4HKc1Nh9NwjSnqMkgcs60KqkWddIwi5tD/uG
+      abzqVXgggDi350mtA5fLXvoFQuvqygFnBt174I33zEzN6j8ptf3YP+eatDB0
+      vp2CMdUVp2f3X+oWC3/9RlggWRCNo9bxTu280ovhx6NXLDxm50Y=
+after_success:
+  - wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
+  - git remote add heroku git@heroku.com:rss-unify.git
+  - echo "Host heroku.com" >> ~/.ssh/config
+  - echo "   StrictHostKeyChecking no" >> ~/.ssh/config
+  - echo "   CheckHostIP no" >> ~/.ssh/config
+  - echo "   UserKnownHostsFile=/dev/null" >> ~/.ssh/config
+  - heroku keys:clear
+  - yes | heroku keys:add
+  - yes | git push heroku master
+node_js: 
+- 0.8
