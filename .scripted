@@ -12,7 +12,7 @@
 		"onKeys": {
 			"ctrl+alt+r": {
 				"cmd": "npm test",
-				"cwd": "${dir}",
+				"cwd": "${projectDir}",
 				"name": "run tests"
 			}
 		}

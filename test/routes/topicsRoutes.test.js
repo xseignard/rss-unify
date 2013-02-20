@@ -20,7 +20,7 @@ describe('TopicsRoutes', function() {
 		});
 	});
 	
-	describe('#topic()', function() {
+	describe('#details()', function() {
 		it('should return 1 topic', function() {
 			var response = new Response();
 			var req = {
@@ -28,7 +28,7 @@ describe('TopicsRoutes', function() {
 					name : 'test'
 				}
 			};
-			routes.topic(req, response);
+			routes.details(req, response);
 			assert.notEqual(response.getData(), undefined);
 		});
 		
@@ -37,7 +37,7 @@ describe('TopicsRoutes', function() {
 			var req = {
 				params : {}
 			};
-			routes.topic(req, response);
+			routes.details(req, response);
 			assert.equal(response.getStatus(), 404);
 		});
 	});
