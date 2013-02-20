@@ -16,13 +16,19 @@ var redisMock = require('../mocks/store.mock');
 describe('Cache', function() {
   
 	describe('#cache()', function() {
-		it('should store the topic in cache', function(done) {
+		it('should store the topic in cache with the following key: ' + testTopics[0].name, function(done) {
 			var cache = new Cache(testTopics, redisMock);
 			cache.cache(function() {
 				assert.notEqual(redisMock.get(testTopics[0].name), undefined);
 				done();
 			});
-			
+		});
+		it('should store the topic in cache with the following key: ' + testTopics[0].name + '/rss', function(done) {
+			var cache = new Cache(testTopics, redisMock);
+			cache.cache(function() {
+				assert.notEqual(redisMock.get(testTopics[0].name + '/rss'), undefined);
+				done();
+			});
 		});
 	});
 });

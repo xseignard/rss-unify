@@ -6,17 +6,15 @@
 		}
 	},
 	"jshint": {
-		"global": [
-			"define", 
-			"require", 
-			"console", 
-			"window", 
-			"__dirname", 
-			"process", 
-			"module",
-			"exports",
-			"describe",
-			"it"
-			]
+		"global": ["define", "require", "console", "window", "__dirname", "process", "module", "exports", "describe", "it"]
+	},
+	"exec": {
+		"onKeys": {
+			"ctrl+alt+r": {
+				"cmd": "npm test",
+				"cwd": "${dir}",
+				"name": "run tests"
+			}
+		}
 	}
 }
