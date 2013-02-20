@@ -25,6 +25,7 @@ var routes = new TopicsRoutes(topicsRepo, redis);
 app.get('/', routes.index);
 app.get('/:name', routes.topic);
 app.get('/:name/rss', routes.feed);
+app.get('/:name/details', routes.details);
 
 // start app
 var port = process.env.PORT || 5000;
