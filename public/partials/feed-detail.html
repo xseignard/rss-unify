@@ -1,0 +1,10 @@
+<h1>{{feed.title}}</h1>
+<h3>{{feed.description}}</h3>
+<a href="{{feed.feed_url}}">RSS Feed</a>
+
+<article ng-repeat="article in feed.items">‌
+	<h3>{{article.title}}</h3>
+	<p>{{article.author}}</p>
+	<div ng-bind-html-unsafe="article.description">
+</div>
+</article>‌

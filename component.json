@@ -1,0 +1,9 @@
+{
+  "name": "rss-unify",
+  "version": "0.0.1",
+  "dependencies": {
+    "angular": "~1.0.4",
+    "require": "~2.1.4",
+    "jquery": "~1.9.1"
+  }
+}

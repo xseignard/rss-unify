@@ -1,24 +1,26 @@
 {
-	"name": "rss-unify",
-	"description": "unfiy your rss feeds",
-	"version": "0.0.1",
-	"private": true,
-	"dependencies": {
-		"express": "3.x",
-		"mongodb": "1.2.0",
-		"feedparser": "0.10.6",
-		"rss": "0.0.4",
-		"async": "0.1.22",
-		"redis-url": "0.1.x"
-	},
-	"devDependencies": {
-		"mocha": "1.8.x"
-	},
-	"scripts": {
-		"test": "make test"
-	},
-	"engines": {
-		"node": "0.8.x",
-		"npm": "1.1.x"
-	}
+  "name": "rss-unify",
+  "description": "unfiy your rss feeds",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "express": "3.x",
+    "mongodb": "1.2.0",
+    "feedparser": "0.10.6",
+    "rss": "0.0.4",
+    "async": "0.1.22",
+    "redis-url": "0.1.x",
+    "bower": "~0.7.1"
+  },
+  "devDependencies": {
+    "mocha": "1.8.x"
+  },
+  "scripts": {
+    "test": "make test",
+    "postinstall": "./node_modules/bower/bin/bower install"
+  },
+  "engines": {
+    "node": "0.8.x",
+    "npm": "1.1.x"
+  }
 }

@@ -1,11 +1,11 @@
 // requires
-var app = require('express')(),
+var express = require('express'),
+	app = express(),
+	conf = require('./lib/conf/conf'),
 	// mongo
-	MONGO_URL = require('./lib/conf/conf').MONGO_URL,
-	topicsRepo = require('./lib/core/repository')(MONGO_URL, 'topics'),
-	//redis
-	REDIS_URL = require('./lib/conf/conf').REDIS_URL,
-	redis = require('redis-url').connect(REDIS_URL),
+	topicsRepo = require('./lib/core/repository')(conf.MONGO_URL, 'topics'),
+	// redis
+	redis = require('redis-url').connect(conf.REDIS_URL),
 	// modules
 	TopicsRoutes = require('./lib/routes/topicsRoutes'),
 	Cache = require('./lib/core/cache');
@@ -21,11 +21,19 @@ topicsRepo.connect(function() {
 });
 
 var routes = new TopicsRoutes(topicsRepo, redis);
+
+// app conf
+app.use(express.static(__dirname + '/public'));
+
+app.get('/', function (req, res) {
+	res.sendfile('index.html');
+});
+
 // routes
-app.get('/', routes.index);
-app.get('/:name', routes.topic);
-app.get('/:name/rss', routes.feed);
-app.get('/:name/details', routes.details);
+app.get(conf.API_PREFIX + '/', routes.index);
+app.get(conf.API_PREFIX + '/:name', routes.topic);
+app.get(conf.API_PREFIX + '/:name/rss', routes.feed);
+app.get(conf.API_PREFIX + '/:name/details', routes.details);
 
 // start app
 var port = process.env.PORT || 5000;
