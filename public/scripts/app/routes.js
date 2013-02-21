@@ -12,11 +12,20 @@ define(['app'], function(app) {
 					templateUrl : 'partials/feeds-list.html',
 					controller : 'feedListCtrl'
 				}).
-				// selected feed : render it
+				// render selected feed
 				when('/:topic', {
 					templateUrl: 'partials/feed.html',
 					controller: 'feedCtrl'
 				}).
+				// see details of the feed
+                when('/:topic/details', {
+                    templateUrl: 'partials/feed-details.html',
+                    controller: 'feedDetailsCtrl'
+                }).
+				// render rss feed
+                when('/:topic/rss', {
+                     controller: 'rssCtrl'
+                }).
 				// other cases : redirect to the root of the app
 				otherwise({redirectTo: '/'});
 		}]);
