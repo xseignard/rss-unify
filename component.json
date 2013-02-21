@@ -4,6 +4,8 @@
   "dependencies": {
     "angular": "~1.0.4",
     "require": "~2.1.4",
-    "jquery": "~1.9.1"
+    "jquery": "~1.9.1",
+    "angular-sanitize": "~1.0.4",
+    "foundation-3.2.5": "http://foundation.zurb.com/files/foundation-3.2.5.zip"
   }
 }

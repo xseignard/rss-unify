@@ -1,3 +1,4 @@
+// Controllers module
 define(['app'], function(app) {
 
 	/**
@@ -12,7 +13,7 @@ define(['app'], function(app) {
 	/**
 	 * Controller for getting a specific feed
 	 */
-	var feedDetailCtrl = function($scope, $http, $routeParams) {
+	var feedCtrl = function($scope, $http, $routeParams) {
 		$http.get('api/1/' + $routeParams.topic).success(function(data) {
 			$scope.feed = data;
 		});
@@ -23,7 +24,7 @@ define(['app'], function(app) {
 	 */
 	var attachControllers = function() {
 		app.controller('feedListCtrl', feedListCtrl);
-		app.controller('feedDetailCtrl', feedDetailCtrl);
+		app.controller('feedCtrl', feedCtrl);
 		
 		return app;
 	};

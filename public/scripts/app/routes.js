@@ -1,3 +1,4 @@
+// Routes module
 define(['app'], function(app) {
   
 	/**
@@ -13,8 +14,8 @@ define(['app'], function(app) {
 				}).
 				// selected feed : render it
 				when('/:topic', {
-					templateUrl: 'partials/feed-detail.html',
-					controller: 'feedDetailCtrl'
+					templateUrl: 'partials/feed.html',
+					controller: 'feedCtrl'
 				}).
 				// other cases : redirect to the root of the app
 				otherwise({redirectTo: '/'});

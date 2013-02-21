@@ -3,8 +3,8 @@
 <a href="{{feed.feed_url}}">RSS Feed</a>
 
 <article ng-repeat="article in feed.items">‌
-	<h3>{{article.title}}</h3>
+	<h3><a href="{{article.url}}" target="_blank">{{article.title}}</a></h3>
 	<p>{{article.author}}</p>
-	<div ng-bind-html-unsafe="article.description">
+	<div ng-bind-html="article.description">
 </div>
 </article>‌
