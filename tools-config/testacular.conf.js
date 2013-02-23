@@ -10,6 +10,9 @@ files = [
   REQUIRE,
   REQUIRE_ADAPTER,
   
+  // !! Note : {included: false} means accessible from the browser, 
+  // but not included in a <script> tag, loaded with require
+  
   // libs
   {pattern: 'src/client/scripts/vendor/angular*/angular*.js', included: false},
 
