@@ -1,6 +1,6 @@
-var libpath = process.env.TEST_COV ? 'lib-cov' : 'lib',
+var libpath = process.env.TEST_COV ? 'server-cov' : 'server',
     assert = require('assert'),
-	Cache = require('../../'+ libpath +'/core/cache');
+	Cache = require('../../../src/'+ libpath +'/core/cache');
 
 var testTopics = [
 	{

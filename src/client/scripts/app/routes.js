@@ -18,14 +18,14 @@ define(['app'], function(app) {
 					controller: 'feedCtrl'
 				}).
 				// see details of the feed
-                when('/:topic/details', {
-                    templateUrl: 'partials/feed-details.html',
-                    controller: 'feedDetailsCtrl'
-                }).
+				when('/:topic/details', {
+					templateUrl: 'partials/feed-details.html',
+					controller: 'feedDetailsCtrl'
+				}).
 				// render rss feed
-                when('/:topic/rss', {
-                     controller: 'rssCtrl'
-                }).
+				when('/:topic/rss', {
+					controller: 'rssCtrl'
+				}).
 				// other cases : redirect to the root of the app
 				otherwise({redirectTo: '/'});
 		}]);

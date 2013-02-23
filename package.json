@@ -13,10 +13,11 @@
     "bower": "~0.7.1"
   },
   "devDependencies": {
-    "mocha": "1.8.x"
+    "mocha": "1.8.x",
+    "testacular": "~0.6"
   },
   "scripts": {
-    "test": "make test",
+    "test": "cd tools-config; make test",
     "postinstall": "./node_modules/bower/bin/bower install"
   },
   "engines": {

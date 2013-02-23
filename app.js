@@ -1,14 +1,14 @@
 // requires
 var express = require('express'),
 	app = express(),
-	conf = require('./lib/conf/conf'),
+	conf = require('./src/server/conf/conf'),
 	// mongo
-	topicsRepo = require('./lib/core/repository')(conf.MONGO_URL, 'topics'),
+	topicsRepo = require('./src/server/core/repository')(conf.MONGO_URL, 'topics'),
 	// redis
 	redis = require('redis-url').connect(conf.REDIS_URL),
 	// modules
-	TopicsRoutes = require('./lib/routes/topicsRoutes'),
-	Cache = require('./lib/core/cache');
+	TopicsRoutes = require('./src/server/routes/topicsRoutes'),
+	Cache = require('./src/server/core/cache');
 	
 	
 // connect to the repository
@@ -23,7 +23,7 @@ topicsRepo.connect(function() {
 var routes = new TopicsRoutes(topicsRepo, redis);
 
 // app conf
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/src/client'));
 
 app.get('/', function (req, res) {
 	res.sendfile('index.html');
