@@ -3,7 +3,7 @@ var basePath = '..';
 
 
 // list of files / patterns to load in the browser
-files = [
+var files = [
   // adapters to be loaded
   JASMINE,
   JASMINE_ADAPTER,
@@ -26,20 +26,9 @@ files = [
   'test/client/main.js'
 ];
 
-// enable / disable watching file and executing tests whenever any file changes
-autoWatch = true;
+// re-run tests when a file from the 'files' array is changed
+var autoWatch = true; // automagically sets singleRun = false;
 
+// run tests on the following browsers
+var browsers = ['Chrome'];
 
-// Start these browsers, currently available:
-// - Chrome
-// - ChromeCanary
-// - Firefox
-// - Opera
-// - Safari (only Mac)
-// - PhantomJS
-// - IE (only Windows)
-browsers = ['Chrome'];
-
-// Continuous Integration mode
-// if true, it capture browsers, run tests and exit
-singleRun = false;
