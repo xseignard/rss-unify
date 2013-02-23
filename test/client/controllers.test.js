@@ -9,7 +9,7 @@ define(['controllers', 'app', 'angularMocks', 'angularSanitize'], function(contr
 	}];
 	
 	var feed = {
-  		title: "test feed",
+		title: "test feed",
 		description: "test feed",
 		feed_url: "url",
 		site_url: "url",
