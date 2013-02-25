@@ -1,5 +1,4 @@
-<ul>
-	<li ng-repeat="feed in feeds">
-		<a href="#{{feed.name}}">{{feed.name}}</a> : {{feed.description}}
-	</li>
-</ul>
+<div ng-repeat="feed in feeds">
+	<a href="#{{feed.name}}">{{feed.name}}</a>
+	<p>{{feed.description}}</p>
+</div>

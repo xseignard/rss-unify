@@ -3,9 +3,21 @@
 <head>
 	<meta charset="utf-8">
 	<title>rss-unify</title>
+	<!-- styling -->
+	<link rel="stylesheet" href="scripts/vendor/foundation/stylesheets/foundation.css">
+	<link rel="stylesheet/less" type="text/css" href="style/style.less">
+	<!-- less compilo -->
+	<script src="scripts/vendor/less.js/dist/less-1.3.3.min.js"></script>
 </head>
-<body>
-	<div ng-view ng-cloak></div>
+<body ng-cloak>
+
+	<div class="row">
+		<div id="menu" class="two columns" ng-controller="feedListCtrl">
+			<div ng-include="'partials/feeds-list.html'"></div>
+		</div>
+		
+		<div class="nine columns" ng-view ng-cloak></div>
+	</div>
 	
 	<script data-main="scripts/main" src="scripts/vendor/require/require.js"></script>
 </body>

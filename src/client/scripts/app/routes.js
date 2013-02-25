@@ -7,10 +7,9 @@ define(['app'], function(app) {
 	var setupRoutes = function() {
 		app.config(['$routeProvider', function($routeProvider) {
 			$routeProvider.
-				// root of the app : list available feeds
+				// root of the app : welcome message
 				when('/', {
-					templateUrl : 'partials/feeds-list.html',
-					controller : 'feedListCtrl'
+					templateUrl : 'partials/welcome.html'
 				}).
 				// render selected feed
 				when('/:topic', {
