@@ -10,7 +10,7 @@
     "rss": "0.0.4",
     "async": "0.1.22",
     "redis-url": "0.1.x",
-    "bower": "~0.7.1"
+    "bower": "~0.8.0"
   },
   "devDependencies": {
     "mocha": "1.8.x",
