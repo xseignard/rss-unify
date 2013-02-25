@@ -2,10 +2,12 @@
   "name": "rss-unify",
   "version": "0.0.1",
   "dependencies": {
-    "angular": "~1.0.4",
+    "angular": "~1.0.5",
     "require": "~2.1.4",
     "jquery": "~1.9.1",
-    "angular-sanitize": "~1.0.4",
-    "angular-mocks": "~1.0.4" 
-  }
+    "angular-sanitize": "~1.0.5"
+   },
+   "devDependencies": {
+    "angular-mocks": "~1.0.5"
+   }
 }
