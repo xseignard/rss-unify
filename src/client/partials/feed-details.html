@@ -1,7 +1,9 @@
-<h1>{{details.name}}</h1>
-<h3>{{details.description}}</h3>
-<ul>
-	<li ng-repeat="feed in details.feeds">
-		<a href="{{feed}}">{{feed}}</a>
-	</li>
-</ul>
+<div id="details">
+	<h1>{{details.name}}</h1>
+	<h3>{{details.description}}</h3>
+	<ul>
+		<li ng-repeat="feed in details.feeds">
+			<a href="{{feed}}">{{feed}}</a>
+		</li>
+	</ul>
+</div>

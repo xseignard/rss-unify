@@ -1,16 +1,13 @@
-<div id="head">
-	<h1>{{feed.title}}</h1>
-	<h3>{{feed.description}}</h3>
-	<p>
-		<a href="{{location.absUrl()}}/rss">RSS Feed</a>
-		/
-	‌	<a href="{{location.absUrl()}}/details">Feed details</a>
-	</p>
-</div>
+<div id="feed">
+	<div id="head">
+		<h1>{{feed.title}}</h1>
+		<h3>{{feed.description}}</h3>
+		<p><a href="{{location.absUrl()}}/rss">RSS Feed</a> / <a href="{{location.absUrl()}}/details">Feed details</a></p>
+	</div>
 
-<article ng-repeat="article in feed.items">‌
-	<h3><a href="{{article.url}}" target="_blank">{{article.title}}</a></h3>
-	<p>{{article.author}}</p>
-	<div ng-bind-html="article.description">
-</div>
-</article>‌
+	<article ng-repeat="item in feed.items">‌
+		<h3><a href="{{item.url}}" target="_blank">{{item.title}}</a></h3>
+		<p>{{item.author}}</p>
+		<div ng-bind-html="item.description"></div>
+	</article>
+</div>‌

@@ -1,34 +1,46 @@
 body {
+	overflow-x: hidden;
 	background: url("../images/bg.png");
 	
 	.boxed {
-		margin-top: 15px;
 		box-shadow: 1px 2px 3px #ddd;
 		background: white;
-	}
-	
-	#welcome {
+		border-radius: 3px;
 		padding: 0 15px;
-		.boxed
-	}
-	
-	#menu {
-		padding-top: 15px;
-		position: fixed;
-		.boxed
-	}
-	
-	#head {
-		margin-bottom: 20px;
-		padding: 0 15px;
-		.boxed
-	}
-	
-	article {
-		padding: 0 15px;
-		.boxed;
+		margin-bottom: 15px;
 		ul {
 			padding: 0 30px;
+		}
+	}
+	
+	#container {
+		margin-top: 75px;
+		
+		#menu {
+			#search {
+				.boxed;
+				padding-top: 3px;
+				padding-bottom: 3px;
+				input {
+					width: 100%;
+				}
+			}
+			#feeds {
+				.boxed;
+			}
+		}
+		
+		#head, #welcome, #details {
+			.boxed;
+			h1 {
+				margin-top: 0;
+			}
+		}
+		
+		#feed {
+			article {
+				.boxed;
+			}
 		}
 	}
 }
