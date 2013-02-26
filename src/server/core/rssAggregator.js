@@ -52,6 +52,8 @@ var RssAggregator = function(){
 			for (var i in articles) {
 				// some people put a future date as the pubDate of their articles to stay on top of aggregated feeds, fuck them
 				if (now > Date.parse(articles[i].date)) {
+					// if author not present, take the one from meta, or else the title
+					articles[i].author = articles[i].author || meta.author || meta.title;
 					items.push(articles[i]);
 				}
 			}
