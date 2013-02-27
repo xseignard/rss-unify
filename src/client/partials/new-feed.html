@@ -1,0 +1,44 @@
+<div id="new">
+	<form name="form" novalidate >
+		<h1>New feed</h1>
+		<div class="row">
+			<div class="two columns">
+				<label class="right inline">Name:</label>
+			</div>
+			<div class="ten columns">
+				<input name="name" type="text" placeholder="e.g. My feed" class="ten" ng-model="feed.name" required />
+				<span class="error icon-exclamation-sign" title="required" ng-show="form.name.$error.required"></span>
+			</div>
+		</div>
+		<div class="row">
+			<div class="two columns">
+				<label class="right inline">Description:</label>
+			</div>
+			<div class="ten columns">
+				<input name="desc"type="text" placeholder="e.g. awesome feed" class="ten" ng-model="feed.desc" required />
+				<span class="error icon-exclamation-sign" title="required" ng-show="form.desc.$error.required"></span>
+			</div>
+		</div>
+		<div class="row">
+			<div class="two columns">
+				<label class="right inline">Feeds:</label>
+			</div>
+			<div class="ten columns">
+				<textarea name="urls" placeholder="one feed per line, at least one feed" class="ten" ng-model="urls" validate-url-list required></textarea>
+				<span class="error icon-exclamation-sign" title="invalid url(s)" ng-show="form.urls.$error.validateUrlList" />
+			</div>
+		</div>
+		<div class="row">
+			<div class="two columns offset-by-two">
+				<button class="button" ng:click="save()" ng-disabled="form.$invalid">Save</button>
+			</div>
+			<div class="eight columns">
+				<div id="savingState" ng-switch="savingState">
+					<span ng-switch-when="saving" class="rotate icon-spinner" title="pushing the topic to the server" />
+					<span ng-switch-when="saved" class="icon-ok" title="saved" />
+					<span ng-switch-when="error" class="error icon-exclamation-sign" title="something went wrong" />
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

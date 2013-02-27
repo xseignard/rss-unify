@@ -72,11 +72,31 @@ var TopicsRoutes = function(repo, cache) {
 	    });
 	};
 	
+	/**
+	 *
+	 */
+	var _newTopic = function(req, res) {
+		// if the request is valid
+		if (req.body && req.body.name && req.body.description && req.body.feeds.length > 0) {
+			// store the feed
+			repo.newOne(req.body, function(err, item) {
+				if (err) res.status(500).send({error: 'Someting went wrong'});
+				// insertion ok
+				res.send(item);
+			});
+		}
+		else {
+			// request is not valid
+			res.status(500).send({error: 'Someting went wrong'});
+		}
+	};
+	
 	return {
-		index   : _index,
-		topic   : _topic,
-		feed    : _feed,
-		details : _details
+		index    : _index,
+		topic    : _topic,
+		feed     : _feed,
+		details  : _details,
+		newTopic : _newTopic
 	};
 };
 

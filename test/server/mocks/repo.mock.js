@@ -31,12 +31,18 @@ var RepoMock = function() {
 			callback(undefined);
 		}
     };
+
+	var _newOne = function(object, callback) {
+		if (object.error) callback(object.error, object);
+		callback(undefined, object);
+	};
 	
 	return {
 		connect : _connect,
 		all     : _all,
 		find    : _find,
-		one     : _one
+		one     : _one,
+		newOne  : _newOne
 	};
 }();
 

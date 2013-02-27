@@ -20,7 +20,7 @@ var Response = function() {
     };
     
     var _getStatus = function() {
-		return _statusCode;
+		return _statusCode || 200;
     };
     
     return {

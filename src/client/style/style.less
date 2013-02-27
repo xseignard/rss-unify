@@ -13,6 +13,22 @@ body {
 		}
 	}
 	
+	.error {
+		color: #C60F13;
+	}
+	
+	.rotate {
+		@-webkit-keyframes rotate {
+			from {
+				-webkit-transform: rotate(0deg);
+			}
+	  		to {
+				-webkit-transform: rotate(360deg);
+			}
+		}
+		-webkit-animation: rotate 1s infinite linear;
+	}
+	
 	#container {
 		margin-top: 75px;
 		
@@ -30,7 +46,7 @@ body {
 			}
 		}
 		
-		#head, #welcome, #details {
+		#head, #welcome, #details, #new {
 			.boxed;
 			h1 {
 				margin-top: 0;
@@ -40,6 +56,29 @@ body {
 		#feed {
 			article {
 				.boxed;
+			}
+		}
+		
+		#new {
+			input, textarea {
+				display: inline-block;
+			}
+			textarea {
+				height: 160px;
+				&+span {
+					position: absolute;
+					margin-left: 4px;
+				}
+			}
+			#savingState {
+				span {
+					display: inline-block;
+					width: 14px;
+					height: 14px;
+					font-size: 14px;
+					margin-top: 12px;
+					margin-left: -20px;
+				}
 			}
 		}
 	}

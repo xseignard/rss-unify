@@ -1,10 +1,10 @@
 // Routes module
-define(['app'], function(app) {
+define(function() {
   
 	/**
 	 * Setup the routing
 	 */
-	var setupRoutes = function() {
+	var setupRoutes = function(app) {
 		app.config(['$routeProvider', function($routeProvider) {
 			$routeProvider.
 				// root of the app : welcome message
@@ -12,17 +12,22 @@ define(['app'], function(app) {
 					templateUrl : 'partials/welcome.html'
 				}).
 				// render selected feed
-				when('/:topic', {
+				when('/topic/:topic', {
 					templateUrl: 'partials/feed.html',
 					controller: 'feedCtrl'
 				}).
 				// see details of the feed
-				when('/:topic/details', {
+				when('/topic/:topic/details', {
 					templateUrl: 'partials/feed-details.html',
 					controller: 'feedDetailsCtrl'
 				}).
+				// add a new feed
+				when('/new', {
+					templateUrl: 'partials/new-feed.html',
+					controller: 'newFeedCtrl'
+				}).
 				// render rss feed
-				when('/:topic/rss', {
+				when('/topic/:topic/rss', {
 					controller: 'rssCtrl'
 				}).
 				// other cases : redirect to the root of the app
@@ -30,6 +35,6 @@ define(['app'], function(app) {
 		}]);
 	};
   
-	return setupRoutes();
+	return setupRoutes;
 
 });

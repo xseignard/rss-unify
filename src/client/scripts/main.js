@@ -18,7 +18,7 @@ require.config({
 });
 
 // start the main app logic.
-require(['angular', 'app', 'controllers', 'routes', 'angularSanitize'],
+require(['angular', 'app'],
 function(angular, app) {
 	// this function will be called when all the dependencies listed above are loaded
 	angular.bootstrap(document, ['rss-unify']);

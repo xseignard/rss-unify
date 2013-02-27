@@ -5,7 +5,7 @@ var libpath = process.env.TEST_COV ? 'server-cov' : 'server',
 var testTopic = {
 	name : 'js',
 	description : 'html5/js feeds',
-	feeds : ['http://rss.badassjs.com']
+	feeds : ['http://xseignard.github.com/atom.xml']
 };
 
 	

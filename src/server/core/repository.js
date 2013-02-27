@@ -55,11 +55,24 @@ var Repository = function(dbUrl, collectionName) {
 		});
 	};
 	
+	/**
+	 * Insert a new object in the collection
+	 * @param object {object} - the object to insert
+	 * @param callback {object} - the called function once object is inserted
+	 */
+	var _newOne = function(object, callback) {
+		coll.insert(object, function(err, item) {
+			if (err) throw err;
+            callback(err, item);
+		});
+	};
+	
 	return {
 		connect : _connect,
 		all     : _all,
 		find    : _find,
-		one     : _one
+		one     : _one,
+		newOne     : _newOne
 	};
 };
 

@@ -41,5 +41,32 @@ describe('TopicsRoutes', function() {
 			assert.equal(response.getStatus(), 404);
 		});
 	});
+	
+	describe('#newTopic()', function() {
+		it('should return a 200', function() {
+			var response = new Response();
+			var req = {
+                body : {
+					name: 'test',
+					description: 'test',
+					feeds: ['http://test.com']
+				}
+            };
+			routes.newTopic(req, response);
+			assert.equal(response.getStatus(), 200);
+		});
+		it('should return a 500', function() {
+			var response = new Response();
+			var req = {};
+			routes.newTopic(req, response);
+			assert.equal(response.getStatus(), 500);
+		});
+		it('should return a 500', function() {
+			var response = new Response();
+			var req = {error: 'error'};
+			routes.newTopic(req, response);
+			assert.equal(response.getStatus(), 500);
+		});
+	});
 
 });
