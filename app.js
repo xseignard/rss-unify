@@ -25,7 +25,8 @@ var updateCache = function() {
 	});
 };
 updateCache();
-setInterval(updateCache, 1000*30);
+var tenMinutes = 10 * 1000 * 60;
+setInterval(updateCache, tenMinutes);
 
 var routes = new TopicsRoutes(topicsRepo, cacheService);
 
