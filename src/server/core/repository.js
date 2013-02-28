@@ -21,6 +21,17 @@ var Repository = function(dbUrl, collectionName) {
 	};
 	
 	/**
+	 * Close the connection
+	 */
+	var _close = function() {
+		console.log('Closing repo connection...');
+		db.close(function(err, result) {
+			if (err) throw err;
+			console.log('Done');
+		});
+	};
+	
+	/**
 	 * Find all items in the collection
 	 * @param callback {object} - the called function once all items are found
 	 */
@@ -69,6 +80,7 @@ var Repository = function(dbUrl, collectionName) {
 	
 	return {
 		connect : _connect,
+		close   : _close,
 		all     : _all,
 		find    : _find,
 		one     : _one,

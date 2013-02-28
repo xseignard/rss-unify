@@ -8,19 +8,26 @@ var express = require('express'),
 	redis = require('redis-url').connect(conf.REDIS_URL),
 	// modules
 	TopicsRoutes = require('./src/server/routes/topicsRoutes'),
-	Cache = require('./src/server/core/cache');
+	cacheService = require('./src/server/core/cacheService')(redis);
 	
 	
 // connect to the repository
-topicsRepo.connect(function() {
-	topicsRepo.all(function(topics) {
-		// start caching (updated every 10mins in this case)
-		var cache = new Cache(topics, redis);
-		cache.cacheFeeds(10);
+var updateCache = function() {
+	topicsRepo.connect(function() {
+		topicsRepo.all(function(topics) {
+			// executed when all caching is done
+			var done = function() {
+				topicsRepo.close();
+			};
+			// start caching 
+			cacheService.cacheFeeds(topics, done);
+		});
 	});
-});
+};
+updateCache();
+setInterval(updateCache, 1000*30);
 
-var routes = new TopicsRoutes(topicsRepo, redis);
+var routes = new TopicsRoutes(topicsRepo, cacheService);
 
 // app conf
 app.use(express.static(__dirname + '/src/client'));

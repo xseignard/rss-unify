@@ -1,4 +1,4 @@
-var TopicsRoutes = function(repo, cache) {
+var TopicsRoutes = function(repo, cacheService) {
 	
 	/**
 	 * Find all topics
@@ -25,7 +25,7 @@ var TopicsRoutes = function(repo, cache) {
 		// topic name
 		var name = req.params.name;
 		// get the topic feed from cache
-		cache.get(name, function(err, feed) {
+		cacheService.get(name, function(err, feed) {
 			if (err || !feed) {
 				res.status(404).send({error: 'Feed not found'});
 		    }
@@ -44,7 +44,7 @@ var TopicsRoutes = function(repo, cache) {
 		// topic name
 		var name = req.params.name;
 		// get the topic feed from cache
-		cache.get(name + '/rss', function(err, feed) {
+		cacheService.get(name + '/rss', function(err, feed) {
 			if (err || !feed) {
 				res.status(404).send({error: 'Feed not found'});
 		    }
@@ -81,8 +81,10 @@ var TopicsRoutes = function(repo, cache) {
 			// store the feed
 			repo.newOne(req.body, function(err, item) {
 				if (err) res.status(500).send({error: 'Someting went wrong'});
-				// insertion ok
-				res.send(item);
+				// insertion ok, cache the feed
+				cacheService.cacheFeed(req.body, function() {
+					res.send(item);
+				});
 			});
 		}
 		else {

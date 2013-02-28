@@ -14,10 +14,14 @@ var StoreMock = function() {
 		if(cache[key]) delete cache[key];
 	};
 	
+	var _cacheFeed = function(value, callback) {
+		callback();
+	};
 	return {
-		get : _get,
-		set : _set,
-		del : _del
+		get       : _get,
+		set       : _set,
+		del       : _del,
+		cacheFeed : _cacheFeed
 	};
 }();
 

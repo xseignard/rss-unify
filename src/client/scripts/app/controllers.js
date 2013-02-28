@@ -7,9 +7,11 @@ define(function() {
 	/**
 	 * Controller to list available feeds
 	 */
-	controllers.feedListCtrl = function($scope, $http) {
+	controllers.feedListCtrl = function($rootScope, $scope, $http) {
 		$http.get('api/1/').success(function(data) {
 			$scope.feeds = data;
+			// store it to the rootScope in order to access it elsewhere
+			$rootScope.feeds = data;
 		});
 	};
 	
@@ -34,13 +36,13 @@ define(function() {
 	/**
 	 * Controller to create a new feed
 	 */
-	controllers.newFeedCtrl = function($scope, $http) {
+	controllers.newFeedCtrl = function($window, $scope, $http) {
 		// feed to be created
 		$scope.feed = {};
 
-		// saves the new feed to the server
+		// save the new feed to the server
 		$scope.save = function() {
-			// sets the state to saving
+			// set the state to saving
 			$scope.savingState = 'saving';
 			// process the data to send
 			var urls = $scope.urls.split('\n');
@@ -53,6 +55,7 @@ define(function() {
 				// handle succes and errors
 				success(function(data, status, headers, config) {
 					$scope.savingState = 'saved';
+					$window.location.href = $window.location.href.replace('new', 'topic/' + $scope.feed.name);
 				}).
 				error(function(data, status, headers, config) {
 					$scope.savingState = 'error';
@@ -65,7 +68,8 @@ define(function() {
 	 */
 	controllers.rssCtrl = function($window) {
 		// only redirect to the rss feed
-		$window.location.href = $window.location.href.replace('#','api/1');
+		console.log($window.location.href.replace('#/topic','api/1'));
+		$window.location.href = $window.location.href.replace('#/topic','api/1');
 	};
 		
 	return controllers;
