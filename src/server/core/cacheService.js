@@ -54,26 +54,26 @@ var CacheService = function(redis) {
 	 * @param callback {function} - called after getting in cache
 	 * @return {object} the corresponding value
 	 */
-	 var _get = function(key, callback) {
+	var _get = function(key, callback) {
 		redis.get(key, callback);
-	 };
+	};
 	 
 	/**
 	 * Set to cache
 	 * @param key {string} - the key of the value to store
 	 * @param value {object} - value to store
 	 */
-	 var _set = function(key, value) {
+	var _set = function(key, value) {
 		redis.set(key, value, redis.print);
-	 };
+	};
 	
 	/**
 	 * Delete from cache
 	 * @param key {string} - the key of the value to delete
 	 */
-	 var _del = function(key) {
+	var _del = function(key) {
 		redis.del(key, redis.print);
-	 };
+	};
 	
 	return {
 		cacheFeeds : _cacheFeeds,

@@ -1,4 +1,5 @@
-define(['angular', 'controllers', 'directives', 'routes', 'angularSanitize'], function(angular, controllers, directives, routes) {
+define(['angular', 'controllers', 'directives', 'routes', 'angularSanitize'],
+function(angular, controllers, directives, routes, services) {
 	// init the angular app with its dependent modules
 	var app = angular.module('rss-unify', ['ngSanitize']);
 	// bind the $location service to the $rootScope in order to access the service from children $scopes
@@ -18,6 +19,6 @@ define(['angular', 'controllers', 'directives', 'routes', 'angularSanitize'], fu
 
 	// attach the directives
 	app.directive('validateUrlList', directives.validateUrlList);
-
+	
 	return app;
 });

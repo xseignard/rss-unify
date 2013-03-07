@@ -28,7 +28,7 @@ var RssAggregator = function(){
 			function(err) {
 				// sort items by date
 				items.sort(function(a, b) {
-				    return (Date.parse(b.date) - Date.parse(a.date));
+					return (Date.parse(b.date) - Date.parse(a.date));
 				});
 				// create the feed
 				var rssFeed = _createAggregatedFeed(topic, items);
@@ -77,10 +77,10 @@ var RssAggregator = function(){
 		// create the feed
 		var feed = new RSS({
 			title: 'Aggregated feed about ' + topic.name,
-	        description: topic.description,
-	        feed_url: conf.URL + conf.API_PREFIX + '/' + topic.name + '/rss',
-	        site_url: conf.URL,
-	        author: 'Made with rss-unify (https://github.com/xseignard/rss-unify)'
+			description: topic.description,
+			feed_url: conf.URL + conf.API_PREFIX + '/' + topic.name + '/rss',
+			site_url: conf.URL,
+			author: 'Made with rss-unify (https://github.com/xseignard/rss-unify)'
 		});
 		// number of requested feed items (defaults to 20)
 		// if there is less than 20 feed items, set the according number

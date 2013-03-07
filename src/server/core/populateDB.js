@@ -67,9 +67,10 @@ var topics = [
 		}, {
 			name : 'js',
 			description : 'html5/js feeds',
-			feeds : [ 'http://howtonode.org/feed.xml',
-			          'http://feeds.feedburner.com/html5rocks',
-			          'http://badassjs.com/rss']
+			feeds : [ 
+					'http://howtonode.org/feed.xml', 
+					'http://feeds.feedburner.com/html5rocks',
+					'http://badassjs.com/rss']
 		} ];
 
 MongoClient.connect(uri, function(err, db) {

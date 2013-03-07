@@ -1,8 +1,18 @@
 {
   "name": "rss-unify",
-  "description": "unfiy your rss feeds",
+  "author": "Xavier Seignard <xavier.seignard@gmail.com>",
+  "description": "Unfiy your rss feeds",
+  "homepage": "http://rss-unify.herokuapp.com",
   "version": "0.0.1",
   "private": true,
+  "scripts": {
+    "test": "cd config; make test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xseignard/rss-unify.git"
+  },
+  "license": "MIT",
   "dependencies": {
     "express": "3.x",
     "mongodb": "1.2.0",
@@ -14,11 +24,11 @@
   },
   "devDependencies": {
     "mocha": "1.8.x",
-    "testacular": "~0.6"
-  },
-  "scripts": {
-    "test": "cd tools-config; make test",
-    "postinstall": "./node_modules/bower/bin/bower install"
+    "testacular": "~0.6",
+    "grunt": "~0.4.0",
+    "grunt-contrib-jshint": "~0.2.0",
+    "gruntacular": "~0.2.2",
+    "grunt-contrib-watch": "~0.3.1"
   },
   "engines": {
     "node": "0.8.x",

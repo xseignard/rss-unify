@@ -1,24 +1,27 @@
 // Controllers module
 define(function() {
 
-	// object holding the controllers
-	var controllers = {};
-
 	/**
 	 * Controller to list available feeds
 	 */
-	controllers.feedListCtrl = function($rootScope, $scope, $http) {
-		$http.get('api/1/').success(function(data) {
-			$scope.feeds = data;
-			// store it to the rootScope in order to access it elsewhere
-			$rootScope.feeds = data;
-		});
+	var _feedListCtrl = function($scope, $http) {
+		// http call to get the feeds
+		var _getFeeds = function() {
+			$http.get('api/1/').success(function(data) {
+				$scope.feeds = data;
+			});
+		};
+		// actually get the feeds
+		_getFeeds();
+		// each time a topic is added, re-fetch them from the server
+		$scope.$on('addedTopic', _getFeeds());
+		
 	};
 	
 	/**
 	 * Controller to get a specific feed
 	 */
-	controllers.feedCtrl = function($scope, $http, $routeParams) {
+	var _feedCtrl = function($scope, $http, $routeParams) {
 		$http.get('api/1/' + $routeParams.topic).success(function(data) {
 			$scope.feed = data;
 		});
@@ -27,7 +30,7 @@ define(function() {
 	/**
 	 * Controller to get the details of a feed
 	 */
-	controllers.feedDetailsCtrl = function($scope, $http, $routeParams) {
+	var _feedDetailsCtrl = function($scope, $http, $routeParams) {
 		$http.get('api/1/' + $routeParams.topic + '/details').success(function(data) {
 			$scope.details = data;
 		});
@@ -36,7 +39,7 @@ define(function() {
 	/**
 	 * Controller to create a new feed
 	 */
-	controllers.newFeedCtrl = function($window, $scope, $http) {
+	var _newFeedCtrl = function($window, $scope, $http, $rootScope) {
 		// feed to be created
 		$scope.feed = {};
 
@@ -55,6 +58,9 @@ define(function() {
 				// handle succes and errors
 				success(function(data, status, headers, config) {
 					$scope.savingState = 'saved';
+					// broadcast a message to tell that a topic has been added
+					$rootScope.$broadcast('addedTopic');
+					// go to the feed page
 					$window.location.href = $window.location.href.replace('new', 'topic/' + $scope.feed.name);
 				}).
 				error(function(data, status, headers, config) {
@@ -66,11 +72,17 @@ define(function() {
 	/**
 	 * Controller to get the rss feed
 	 */
-	controllers.rssCtrl = function($window) {
+	var _rssCtrl = function($window) {
 		// only redirect to the rss feed
 		console.log($window.location.href.replace('#/topic','api/1'));
 		$window.location.href = $window.location.href.replace('#/topic','api/1');
 	};
-		
-	return controllers;
+	
+	return {
+		feedListCtrl    : _feedListCtrl,
+		feedCtrl        : _feedCtrl,
+		feedDetailsCtrl : _feedDetailsCtrl,
+		newFeedCtrl     : _newFeedCtrl,
+		rssCtrl         : _rssCtrl
+	};
 });

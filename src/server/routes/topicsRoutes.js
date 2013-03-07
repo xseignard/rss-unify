@@ -28,10 +28,10 @@ var TopicsRoutes = function(repo, cacheService) {
 		cacheService.get(name, function(err, feed) {
 			if (err || !feed) {
 				res.status(404).send({error: 'Feed not found'});
-		    }
-		    else {
+			}
+			else {
 				res.send(JSON.parse(feed));
-		    }
+			}
 		});
 	};
 	
@@ -47,10 +47,10 @@ var TopicsRoutes = function(repo, cacheService) {
 		cacheService.get(name + '/rss', function(err, feed) {
 			if (err || !feed) {
 				res.status(404).send({error: 'Feed not found'});
-		    }
-		    else {
+			}
+			else {
 				res.send(feed);
-		    }
+			}
 		});
 	};
 	
@@ -60,16 +60,16 @@ var TopicsRoutes = function(repo, cacheService) {
 	 * @param res - the response
 	 */
 	var _details = function(req, res) {
-	    // topic name
+		// topic name
 		var name = req.params.name;
-	    repo.one({'name':name}, function(topic) {
+		repo.one({'name':name}, function(topic) {
 			if (topic) {
 				res.send(topic);
 			} 
 			else {
 				res.status(404).send({error: 'Topic not found'});
 			}
-	    });
+		});
 	};
 	
 	/**

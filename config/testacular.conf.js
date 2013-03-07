@@ -26,9 +26,6 @@ var files = [
   'test/client/main.js'
 ];
 
-// re-run tests when a file from the 'files' array is changed
-var autoWatch = true; // automagically sets singleRun = false;
-
 // run tests on the following browsers
 var browsers = ['Chrome'];
 

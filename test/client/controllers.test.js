@@ -43,7 +43,7 @@ define(['controllers', 'app', 'angularMocks', 'angularSanitize'], function(contr
 				scope = $rootScope.$new();
 				// faking the request
 				$httpBackend = _$httpBackend_;
-				$httpBackend.expectGET('api/1/').respond(topics);
+				$httpBackend.whenGET('api/1/').respond(topics); 
 				// create the controller
 				ctrl = $controller(controllers.feedListCtrl, {$scope: scope});
 			}));
