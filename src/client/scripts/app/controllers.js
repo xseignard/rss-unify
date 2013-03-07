@@ -75,7 +75,7 @@ define(function() {
 	var _rssCtrl = function($window) {
 		// only redirect to the rss feed
 		console.log($window.location.href.replace('#/topic','api/1'));
-		$window.location.href = $window.location.href.replace('#/topic','api/1');
+		$window.location = $window.location.href.replace('#/topic','api/1');
 	};
 	
 	return {

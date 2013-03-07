@@ -44,35 +44,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('gruntacular');
 	
 	// task def
-	// bower install
-	grunt.registerTask('bower', 'install the bower dependencies', function() {
-		var async = require('async');
-		var exec = require('child_process').exec;
-		var done = this.async();
-		
-		var runCmd = function(item, callback) {
-			process.stdout.write('running "' + item + '"...\n');
-			var cmd = exec(item);
-			cmd.stdout.on('data', function (data) {
-				process.stdout.write(data);
-			});
-			cmd.stderr.on('data', function (data) {
-				process.stdout.write(data);
-			});
-			cmd.on('exit', function (code) {
-				if (code !== 0) callback(new Error('Failed to install bower dependencies'));
-				process.stdout.write('done\n');
-				callback();
-			});
-		};
-		
-		runCmd('bower install', function(err) {
-			if (err) done(false);
-			done();
-		});
-    });
     // ci task
-	grunt.registerTask('ci', ['jshint', 'bower', 'testacular:ci']);
-	// heroku task : run when deploying to heroku
-	grunt.registerTask('heroku', ['bower']);
+	grunt.registerTask('ci', ['jshint', 'testacular:ci']);
+
 };
