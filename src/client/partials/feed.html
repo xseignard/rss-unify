@@ -2,7 +2,7 @@
 	<div id="head">
 		<h1>{{feed.title}}</h1>
 		<h3>{{feed.description}}</h3>
-		<p><a href="{{location.absUrl()}}/rss">RSS Feed</a> / <a href="{{location.absUrl()}}/details">Feed details</a></p>
+		<p><a href="/{{feed.topic}}/rss" target="_blank">RSS Feed</a> / <a href="{{location.absUrl()}}/details">Feed details</a></p>
 	</div>
 
 	<article ng-repeat="item in feed.items">‌

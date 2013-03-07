@@ -24,6 +24,7 @@ define(function() {
 	var _feedCtrl = function($scope, $http, $routeParams) {
 		$http.get('api/1/' + $routeParams.topic).success(function(data) {
 			$scope.feed = data;
+			$scope.feed.topic = $routeParams.topic;
 		});
 	};
 	
@@ -69,20 +70,10 @@ define(function() {
 		};
 	};
 	
-	/**
-	 * Controller to get the rss feed
-	 */
-	var _rssCtrl = function($window) {
-		// only redirect to the rss feed
-		console.log($window.location.href.replace('#/topic','api/1'));
-		$window.location = $window.location.href.replace('#/topic','api/1');
-	};
-	
 	return {
 		feedListCtrl    : _feedListCtrl,
 		feedCtrl        : _feedCtrl,
 		feedDetailsCtrl : _feedDetailsCtrl,
-		newFeedCtrl     : _newFeedCtrl,
-		rssCtrl         : _rssCtrl
+		newFeedCtrl     : _newFeedCtrl
 	};
 });

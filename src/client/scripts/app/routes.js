@@ -26,10 +26,6 @@ define(function() {
 					templateUrl: 'partials/new-feed.html',
 					controller: 'newFeedCtrl'
 				}).
-				// render rss feed
-				when('/topic/:topic/rss', {
-					controller: 'rssCtrl'
-				}).
 				// other cases : redirect to the root of the app
 				otherwise({redirectTo: '/'});
 		}]);

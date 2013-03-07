@@ -42,6 +42,19 @@ describe('TopicsRoutes', function() {
 		});
 	});
 	
+	describe('#redirectToFeed()', function() {
+		it('should perform a redirection (i.e. res.statusCode=302)', function() {
+			var response = new Response();
+			var req = {
+				params : {
+					name : 'test'
+				}
+			};
+			routes.redirectToFeed(req, response);
+			assert.equal(response.getStatus(), 302);
+		});
+	});
+	
 	describe('#newTopic()', function() {
 		it('should return a 200', function() {
 			var response = new Response();

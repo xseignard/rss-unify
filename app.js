@@ -41,6 +41,7 @@ app.get('/', function (req, res) {
 // routes
 app.get(conf.API_PREFIX + '/', routes.index);
 app.get(conf.API_PREFIX + '/:name', routes.topic);
+app.get('/:name/rss', routes.redirectToFeed); 
 app.get(conf.API_PREFIX + '/:name/rss', routes.feed);
 app.get(conf.API_PREFIX + '/:name/details', routes.details);
 app.post(conf.API_PREFIX + '/new', routes.newTopic);

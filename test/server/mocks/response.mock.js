@@ -19,6 +19,10 @@ var Response = function() {
 		};
     };
     
+    var _redirect = function(url) {
+		_statusCode = 302;
+    };
+    
     var _getStatus = function() {
 		return _statusCode || 200;
     };
@@ -27,7 +31,8 @@ var Response = function() {
 		getData   : _getData,
 		send      : _send,
 		status    : _status,
-		getStatus : _getStatus
+		getStatus : _getStatus,
+		redirect  : _redirect
     };
 };
 

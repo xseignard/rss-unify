@@ -1,5 +1,7 @@
 var TopicsRoutes = function(repo, cacheService) {
 	
+	var conf = require('../conf/conf');
+	
 	/**
 	 * Find all topics
 	 * @param req - the request being sent
@@ -55,6 +57,18 @@ var TopicsRoutes = function(repo, cacheService) {
 	};
 	
 	/**
+	 * Redirect to the api the serves the rss feed
+	 * @param req - the request being sent
+	 * @param res - the response
+	 */
+	var _redirectToFeed = function(req, res) {
+		// topic name
+		var name = req.params.name;
+		// redirect to the api
+		res.redirect(conf.API_PREFIX + '/' + name + '/rss');
+	};
+	
+	/**
 	 * Find the topic details
 	 * @param req - the request being sent
 	 * @param res - the response
@@ -94,11 +108,12 @@ var TopicsRoutes = function(repo, cacheService) {
 	};
 	
 	return {
-		index    : _index,
-		topic    : _topic,
-		feed     : _feed,
-		details  : _details,
-		newTopic : _newTopic
+		index          : _index,
+		topic          : _topic,
+		feed           : _feed,
+		redirectToFeed : _redirectToFeed,
+		details        : _details,
+		newTopic       : _newTopic
 	};
 };
 
