@@ -8,7 +8,8 @@ module.exports = function(grunt) {
 				'<%= grunt.template.today("yyyy-mm-dd") %>\n' + 
 				'<%= pkg.homepage ? "* " + pkg.homepage + "\n" : "" %>' + 
 				'* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' + 
-				' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */'
+				' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */',
+			distDir: 'dist/'
 		},
 		jshint: {
 			all: ['src/scripts/**/*.js', 'test/**/*.js', 'Gruntfile.js'],
@@ -32,9 +33,21 @@ module.exports = function(grunt) {
 		requirejs: {
 			compile: {
 				options: {
-					mainConfigFile: "src/scripts/main.js",
-					out: "../dist/test.js"
+					name: 'app',
+					baseUrl: '<%= meta.distDir %>/scripts/app',
+					mainConfigFile: '<%= meta.distDir %>/scripts/main.js',
+					out: '<%= meta.distDir %>/test.js',
+					optimize: 'none'
 				}
+			}
+		},
+		clean: ['<%= meta.distDir %>'],
+		copy: {
+			main: {
+				files: [
+					{expand: true, cwd: 'src/', src: ['**'], dest: '<%= meta.distDir %>'},
+					{src: ['components/**'], dest: '<%= meta.distDir %>'}
+				]
 			}
 		},
 		watch: {
@@ -51,8 +64,11 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('gruntacular');
 	grunt.loadNpmTasks('grunt-contrib-requirejs');
+	grunt.loadNpmTasks('grunt-contrib-copy');
+	grunt.loadNpmTasks('grunt-contrib-clean');
 	
 	// task def
+	grunt.registerTask('build', ['clean', 'jshint', 'testacular:ci', 'copy', 'requirejs']);
     // ci task
 	grunt.registerTask('ci', ['jshint', 'testacular:ci']);
 
