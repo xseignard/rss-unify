@@ -4,9 +4,9 @@ require.config({
 	baseUrl: 'scripts/app',
 	// vendor lib paths
 	paths: {
-		jquery          : '../vendor/jquery/jquery',
-		angular         : '../vendor/angular/angular',
-		angularSanitize : '../vendor/angular-sanitize/angular-sanitize'
+		jquery          : '../../../components/jquery/jquery',
+		angular         : '../../../components/angular/angular',
+		angularSanitize : '../../../components/angular-sanitize/angular-sanitize'
 	},
 	shim: {
 		'angular'         : {exports : 'angular'},

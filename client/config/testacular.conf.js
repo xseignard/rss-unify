@@ -14,16 +14,16 @@ var files = [
   // but not included in a <script> tag, loaded with require
   
   // libs
-  {pattern: 'src/client/scripts/vendor/angular*/angular*.js', included: false},
+  {pattern: 'components/angular*/angular*.js', included: false},
 
   // app files
-  {pattern: 'src/client/scripts/main.js', included: false},
-  {pattern: 'src/client/scripts/app/**/*.js', included: false},
+  {pattern: 'src/scripts/**/*.js', included: false},
+
   // test files
-  {pattern: 'test/client/**/*.test.js', included: false},
+  {pattern: 'test/**/*.test.js', included: false},
   
   // files are now accessible from the browser, load them with require
-  'test/client/main.js'
+  'test/main.js'
 ];
 
 // run tests on the following browsers

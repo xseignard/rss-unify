@@ -1,14 +1,14 @@
 // requires
 var express = require('express'),
 	app = express(),
-	conf = require('./src/server/conf/conf'),
+	conf = require('./conf/conf'),
 	// mongo
-	topicsRepo = require('./src/server/core/repository')(conf.MONGO_URL, 'topics'),
+	topicsRepo = require('./core/repository')(conf.MONGO_URL, 'topics'),
 	// redis
 	redis = require('redis-url').connect(conf.REDIS_URL),
 	// modules
-	TopicsRoutes = require('./src/server/routes/topicsRoutes'),
-	cacheService = require('./src/server/core/cacheService')(redis);
+	TopicsRoutes = require('./routes/topicsRoutes'),
+	cacheService = require('./core/cacheService')(redis);
 	
 	
 // connect to the repository
@@ -31,7 +31,18 @@ setInterval(updateCache, tenMinutes);
 var routes = new TopicsRoutes(topicsRepo, cacheService);
 
 // app conf
-app.use(express.static(__dirname + '/src/client'));
+// development only
+app.configure('development', function(){
+	app.use(express.static(__dirname + '/../../client/src'));
+	app.use('/components', express.static(__dirname + '/../../client/components'));
+})
+
+// production only
+app.configure('production', function(){
+  app.use(express.static(__dirname + '/../../dist'));
+})
+
+
 app.use(express.bodyParser());
 
 app.get('/', function (req, res) {

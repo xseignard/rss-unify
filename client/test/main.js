@@ -1,20 +1,21 @@
 /**
- * Get all tests files (i.e. ending with .test.js and in the test/client folder)
+ * Get all tests files (i.e. ending with .test.js and in the test/ folder)
  */
 var getTests = function() {
-	var testDir = '/base/test/client',
+	var testDir = '/base/test',
 		testPattern = '.test.js',
 		extension = '.js',
 		tests = [];
 	
 	for (var file in window.__testacular__.files) {
 		if (file.indexOf(testDir) !== -1 && file.indexOf(testPattern) !== -1) { 
-			// make the test file path relative to the requirejs baseUrl
-			var test = file.replace('/base', '../../../..');
+			// make the test file path relative to the requirejs baseUrl as defined below
+			var test = file.replace('/base', '../../..');
 			test = test.substring(0, test.length - extension.length);
 			tests.push(test);
 		}
 	}
+	// add other libs
 	tests.push('angularMocks');
 	return tests;
 };
@@ -22,12 +23,12 @@ var getTests = function() {
 // requirejs config
 require.config({
 	// testacular serves files from '/base'
-	baseUrl: '/base/src/client/scripts/app',
+	baseUrl: '/base/src/scripts/app',
 	paths: {
-		jquery          : '../vendor/jquery/jquery',
-		angular         : '../vendor/angular/angular',
-		angularSanitize : '../vendor/angular-sanitize/angular-sanitize',
-		angularMocks    : '../vendor/angular-mocks/angular-mocks'
+		jquery          : '../../../components/jquery/jquery',
+		angular         : '../../../components/angular/angular',
+		angularSanitize : '../../../components/angular-sanitize/angular-sanitize',
+		angularMocks    : '../../../components/angular-mocks/angular-mocks'
 	},
 	shim: {
 		'angular'         : {exports : 'angular'},

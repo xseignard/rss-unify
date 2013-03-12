@@ -1,6 +1,6 @@
-var libpath = process.env.TEST_COV ? 'server-cov' : 'server',
+var libpath = process.env.TEST_COV ? 'src-cov' : 'src',
 	assert = require('assert'),
-	RssAggregator = require('../../../src/'+ libpath +'/core/rssAggregator')();
+	RssAggregator = require('../../'+ libpath +'/core/rssAggregator')();
 
 var testTopic = {
 	name : 'js',

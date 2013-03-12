@@ -11,9 +11,9 @@ module.exports = function(grunt) {
 				' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */'
 		},
 		jshint: {
-			all: ['src/**/*.js', 'test/**/*.js', 'app.js', 'Gruntfile.js', '!src/client/scripts/vendor/**/*.js'],
+			all: ['src/scripts/**/*.js', 'test/**/*.js', 'Gruntfile.js'],
 			options: {
-				jshintrc: '.jshintrc'
+				jshintrc: '../.jshintrc'
 			}
 		},
 		testacular: {
@@ -29,10 +29,18 @@ module.exports = function(grunt) {
 				browsers: ['PhantomJS']
 			}
 		},
+		requirejs: {
+			compile: {
+				options: {
+					mainConfigFile: "src/scripts/main.js",
+					out: "../dist/test.js"
+				}
+			}
+		},
 		watch: {
 			//run unit tests with testacular (server needs to be already running)
 			testacular: {
-				files: ['src/client/scripts/main.js', 'src/client/scripts/main.js', 'test/client/**/*.test.js'],
+				files: ['src/scripts/**/*.js', 'test/**/*.test.js'],
 				tasks: ['testacular:unit:run']
 			}
 		}
@@ -42,6 +50,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('gruntacular');
+	grunt.loadNpmTasks('grunt-contrib-requirejs');
 	
 	// task def
     // ci task

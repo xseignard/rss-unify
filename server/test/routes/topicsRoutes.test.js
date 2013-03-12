@@ -1,6 +1,6 @@
-var libpath = process.env.TEST_COV ? 'server-cov' : 'server',
+var libpath = process.env.TEST_COV ? 'src-cov' : 'src',
     assert = require('assert'),
-	TopicsRoutes = require('../../../src/'+ libpath +'/routes/topicsRoutes'),
+	TopicsRoutes = require('../../'+ libpath +'/routes/topicsRoutes'),
 	// simple repo mock
 	repo = require('../mocks/repo.mock'),
 	// simple store mock
