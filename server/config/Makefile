@@ -1,8 +1,7 @@
 TESTS = $(shell find ../test/ -name "*.test.js")
 
 test:
-	@../node_modules/.bin/mocha -R spec $(TESTS)
-	grunt jshint
+	mocha -R xunit $(TESTS)
 
 coverage:
 	jscoverage --no-highlight ../src/ ../src-cov
