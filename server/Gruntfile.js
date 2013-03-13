@@ -15,10 +15,16 @@ module.exports = function(grunt) {
 			options: {
 				jshintrc: '../.jshintrc'
 			}
+		},
+		simplemocha: {
+			options: {
+				reporter: 'xunit'
+			},
+			all: { src: 'test/**/*.test.js' }
 		}
 	});
 
 	// task loading
 	grunt.loadNpmTasks('grunt-contrib-jshint');
-
+	grunt.loadNpmTasks('grunt-simple-mocha');
 };
