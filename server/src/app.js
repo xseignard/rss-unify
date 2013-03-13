@@ -35,12 +35,12 @@ var routes = new TopicsRoutes(topicsRepo, cacheService);
 app.configure('development', function(){
 	app.use(express.static(__dirname + '/../../client/src'));
 	app.use('/components', express.static(__dirname + '/../../client/components'));
-})
+});
 
 // production only
 app.configure('production', function(){
-  app.use(express.static(__dirname + '/../../dist'));
-})
+  app.use(express.static(__dirname + '/../../client/dist'));
+});
 
 
 app.use(express.bodyParser());
