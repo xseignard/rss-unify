@@ -41,7 +41,7 @@ module.exports = function(grunt) {
 				}
 			}
 		},
-		clean: ['<%= meta.distDir %>'],
+		clean: ['<%= meta.distDir %>', 'components'],
 		copy: {
 			main: {
 				files: [
@@ -58,6 +58,28 @@ module.exports = function(grunt) {
 			}
 		}
 	});
+	
+	// bower install task
+	grunt.registerTask('bower', 'Install bower dependencies', function() {
+		var exec = require('child_process').exec;
+		var done = this.async();
+		
+		var runCmd = function(item, callback) {
+			var cmd = exec(item);
+			cmd.stdout.on('data', function(data) {
+				process.stdout.write(data);
+			});
+			cmd.stderr.on('data', function(data) {
+				process.stdout.write(data);
+			});
+			cmd.on('exit', function(code) {
+				if (code !== 0) throw new Error('Something went wrong');
+				callback();
+			});
+		};
+
+		runCmd('bower install', done);
+	});
 
 	// task loading
 	grunt.loadNpmTasks('grunt-contrib-jshint');
@@ -70,6 +92,6 @@ module.exports = function(grunt) {
 	// task def
 	grunt.registerTask('build', ['clean', 'jshint', 'testacular:ci', 'copy', 'requirejs']);
     // ci task
-	grunt.registerTask('ci', ['jshint', 'testacular:ci']);
+	grunt.registerTask('ci', ['clean', 'jshint', 'bower', 'testacular:ci']);
 
 };
