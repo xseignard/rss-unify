@@ -27,7 +27,11 @@ module.exports = function(grunt) {
 			// continuous integration mode: run tests once in PhantomJS browser.
 			ci: {
 				singleRun: true,
-				browsers: ['PhantomJS']
+				browsers: ['PhantomJS'],
+				reporters: ['dots', 'junit'],
+				junitReporter: {
+					outputFile: 'test.xml'
+				}
 			}
 		},
 		requirejs: {
