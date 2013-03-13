@@ -1,4 +1,4 @@
 components
 node_modules
 dist
-test.xml
+test-results.xml
