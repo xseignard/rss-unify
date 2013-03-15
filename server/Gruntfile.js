@@ -18,7 +18,7 @@ module.exports = function(grunt) {
 		},
 		simplemocha: {
 			options: {
-				reporter: 'xunit'
+				reporter: 'xunit-file'
 			},
 			all: { src: 'test/**/*.test.js' }
 		}
@@ -27,4 +27,7 @@ module.exports = function(grunt) {
 	// task loading
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-simple-mocha');
+	
+	// ci task
+	grunt.registerTask('ci', ['jshint', 'simplemocha']);
 };

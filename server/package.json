@@ -24,7 +24,8 @@
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-contrib-jshint": "~0.2.0",
-    "grunt-simple-mocha": "~0.3.2"
+    "grunt-simple-mocha": "~0.3.2",
+    "xunit-file": "0.0.2"
   },
   "engines": {
     "node": "0.8.x",

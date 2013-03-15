@@ -30,7 +30,7 @@ module.exports = function(grunt) {
 				browsers: ['PhantomJS'],
 				reporters: ['dots', 'junit'],
 				junitReporter: {
-					outputFile: 'test-results.xml'
+					outputFile: 'xunit.xml'
 				}
 			}
 		},
