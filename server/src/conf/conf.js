@@ -1,3 +1,4 @@
+'use strict';
 var Conf = {
 	// the url of the app
 	URL : process.env.URL || 'http://localhost:5000',

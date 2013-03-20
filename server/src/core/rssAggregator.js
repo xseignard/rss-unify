@@ -1,3 +1,4 @@
+'use strict';
 var RssAggregator = function(){
 	// module vars
 	var feedparser = require('feedparser'),
@@ -13,7 +14,7 @@ var RssAggregator = function(){
 	 * @param topic - the topic to aggregate
 	 * @param callback - the function that will deal with the feed
 	 */
-	var _aggregate = function(topic, callback) {	
+	var _aggregate = function(topic, callback) {
 		// array of all articles from all feeds of a given topic
 		var items = [];
 		// async fetch of each feed
@@ -88,14 +89,14 @@ var RssAggregator = function(){
 		if(items.length < numberOfItems) {
 			numberOfItems = items.length;
 		}
-				
+
 		// get the 'numberOfItems' first rss items to create the feed
 		for (var i=0; i<numberOfItems; i++) {
 			feed.item({
 				title:  _processProperty(items[i].title),
 				description: _processProperty(items[i].summary),
-				url: _processProperty(items[i].link), 
-				author: _processProperty(items[i].author), 
+				url: _processProperty(items[i].link),
+				author: _processProperty(items[i].author),
 				date: _processProperty(items[i].date)
 			});
 		}
@@ -110,7 +111,7 @@ var RssAggregator = function(){
 	var _processProperty = function(property) {
 		return property ? property : 'missing';
 	};
-	
+
 	return {
 		aggregate : _aggregate,
 		parseAndProcessFeed : _parseAndProcessFeed,

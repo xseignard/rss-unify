@@ -1,9 +1,10 @@
+'use strict';
 var Repository = function(dbUrl, collectionName) {
 
 	// modules vars
 	var MongoClient = require('mongodb').MongoClient,
 		db, coll;
-	
+
 	/**
 	 * Connect to the db.
 	 * @param callback {object} - the called function once connected
@@ -19,7 +20,7 @@ var Repository = function(dbUrl, collectionName) {
 			});
 		});
 	};
-	
+
 	/**
 	 * Close the connection
 	 */
@@ -30,7 +31,7 @@ var Repository = function(dbUrl, collectionName) {
 			console.log('Done');
 		});
 	};
-	
+
 	/**
 	 * Find all items in the collection
 	 * @param callback {object} - the called function once all items are found
@@ -41,7 +42,7 @@ var Repository = function(dbUrl, collectionName) {
 			callback(items);
 		});
 	};
-	
+
 	/**
 	 * Find all items in the collection matching the query
 	 * @param query {object} - the query object
@@ -53,7 +54,7 @@ var Repository = function(dbUrl, collectionName) {
 			callback(items);
 		});
 	};
-	
+
 	/**
 	 * Find one item in the collection matching the query
 	 * @param query {object} - the query object
@@ -65,7 +66,7 @@ var Repository = function(dbUrl, collectionName) {
             callback(item);
 		});
 	};
-	
+
 	/**
 	 * Insert a new object in the collection
 	 * @param object {object} - the object to insert
@@ -77,7 +78,7 @@ var Repository = function(dbUrl, collectionName) {
             callback(err, item);
 		});
 	};
-	
+
 	return {
 		connect : _connect,
 		close   : _close,

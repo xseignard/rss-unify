@@ -1,7 +1,8 @@
+'use strict';
 var TopicsRoutes = function(repo, cacheService) {
-	
+
 	var conf = require('../conf/conf');
-	
+
 	/**
 	 * Find all topics
 	 * @param req - the request being sent
@@ -17,7 +18,7 @@ var TopicsRoutes = function(repo, cacheService) {
 			}
 		});
 	};
-	
+
 	/**
 	 * Find a topic by its name
 	 * @param req - the request being sent
@@ -36,7 +37,7 @@ var TopicsRoutes = function(repo, cacheService) {
 			}
 		});
 	};
-	
+
 	/**
 	 * Get the aggregated feed
 	 * @param req - the request being sent
@@ -55,7 +56,7 @@ var TopicsRoutes = function(repo, cacheService) {
 			}
 		});
 	};
-	
+
 	/**
 	 * Redirect to the api the serves the rss feed
 	 * @param req - the request being sent
@@ -67,7 +68,7 @@ var TopicsRoutes = function(repo, cacheService) {
 		// redirect to the api
 		res.redirect(conf.API_PREFIX + '/' + name + '/rss');
 	};
-	
+
 	/**
 	 * Find the topic details
 	 * @param req - the request being sent
@@ -79,13 +80,13 @@ var TopicsRoutes = function(repo, cacheService) {
 		repo.one({'name':name}, function(topic) {
 			if (topic) {
 				res.send(topic);
-			} 
+			}
 			else {
 				res.status(404).send({error: 'Topic not found'});
 			}
 		});
 	};
-	
+
 	/**
 	 *
 	 */
@@ -106,7 +107,7 @@ var TopicsRoutes = function(repo, cacheService) {
 			res.status(500).send({error: 'Someting went wrong'});
 		}
 	};
-	
+
 	return {
 		index          : _index,
 		topic          : _topic,

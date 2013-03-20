@@ -1,3 +1,4 @@
+'use strict';
 var libpath = process.env.TEST_COV ? 'src-cov' : 'src',
     assert = require('assert'),
 	TopicsRoutes = require('../../'+ libpath +'/routes/topicsRoutes'),
@@ -11,7 +12,7 @@ var libpath = process.env.TEST_COV ? 'src-cov' : 'src',
 	routes = new TopicsRoutes(repo, store);
 
 describe('TopicsRoutes', function() {
-  
+
 	describe('#index()', function() {
 		it('should return 2 topics', function() {
 			var response = new Response();
@@ -19,7 +20,7 @@ describe('TopicsRoutes', function() {
 			assert.equal(response.getData().length, 2);
 		});
 	});
-	
+
 	describe('#details()', function() {
 		it('should return 1 topic', function() {
 			var response = new Response();
@@ -31,7 +32,7 @@ describe('TopicsRoutes', function() {
 			routes.details(req, response);
 			assert.notEqual(response.getData(), undefined);
 		});
-		
+
 		it('should return a 404', function() {
 			var response = new Response();
 			var req = {
@@ -41,7 +42,7 @@ describe('TopicsRoutes', function() {
 			assert.equal(response.getStatus(), 404);
 		});
 	});
-	
+
 	describe('#redirectToFeed()', function() {
 		it('should perform a redirection (i.e. res.statusCode=302)', function() {
 			var response = new Response();
@@ -54,7 +55,7 @@ describe('TopicsRoutes', function() {
 			assert.equal(response.getStatus(), 302);
 		});
 	});
-	
+
 	describe('#newTopic()', function() {
 		it('should return a 200', function() {
 			var response = new Response();

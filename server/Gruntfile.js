@@ -1,19 +1,21 @@
+'use strict';
 module.exports = function(grunt) {
 
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
 		meta: {
 			// banner that wil be used in files
-			banner: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' + 
-				'<%= grunt.template.today("yyyy-mm-dd") %>\n' + 
-				'<%= pkg.homepage ? "* " + pkg.homepage + "\n" : "" %>' + 
-				'* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' + 
+			banner: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
+				'<%= grunt.template.today("yyyy-mm-dd") %>\n' +
+				'<%= pkg.homepage ? "* " + pkg.homepage + "\n" : "" %>' +
+				'* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
 				' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */'
 		},
 		jshint: {
 			all: ['src/**/*.js', 'test/**/*.js', 'Gruntfile.js'],
+			checkstyle: 'checkstyle.xml',
 			options: {
-				jshintrc: '../.jshintrc'
+				jshintrc: '.jshintrc'
 			}
 		},
 		simplemocha: {
@@ -27,7 +29,7 @@ module.exports = function(grunt) {
 	// task loading
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-simple-mocha');
-	
+
 	// ci task
-	grunt.registerTask('ci', ['jshint', 'simplemocha']);
+	grunt.registerTask('ci', ['jshint:all', 'simplemocha']);
 };

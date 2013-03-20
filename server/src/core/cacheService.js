@@ -1,7 +1,8 @@
+'use strict';
 var CacheService = function(redis) {
 	// modules
 	var RssAggregator = require('./rssAggregator')();
-	
+
 	/**
 	 * Cache each feed corresponding to the each given topic.
 	 * @param topics {array} - array of topic objects to aggregate and put in cache
@@ -19,7 +20,7 @@ var CacheService = function(redis) {
 				if (callback) callback();
 			}
 		};
-		
+
 		// cache aggregated feed for each topic
 		for(var i=0; i<topics.length; i++) {
 			_cacheFeed(topics[i], allCached);
@@ -47,7 +48,7 @@ var CacheService = function(redis) {
 		};
 		RssAggregator.aggregate(topic, storeIt);
 	};
-	
+
 	/**
 	 * Get from cache
 	 * @param key {string} - the key of the value to get
@@ -57,7 +58,7 @@ var CacheService = function(redis) {
 	var _get = function(key, callback) {
 		redis.get(key, callback);
 	};
-	 
+
 	/**
 	 * Set to cache
 	 * @param key {string} - the key of the value to store
@@ -66,7 +67,7 @@ var CacheService = function(redis) {
 	var _set = function(key, value) {
 		redis.set(key, value, redis.print);
 	};
-	
+
 	/**
 	 * Delete from cache
 	 * @param key {string} - the key of the value to delete
@@ -74,7 +75,7 @@ var CacheService = function(redis) {
 	var _del = function(key) {
 		redis.del(key, redis.print);
 	};
-	
+
 	return {
 		cacheFeeds : _cacheFeeds,
 		cacheFeed  : _cacheFeed,

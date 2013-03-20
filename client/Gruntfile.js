@@ -13,14 +13,15 @@ module.exports = function(grunt) {
 		},
 		jshint: {
 			all: ['src/scripts/**/*.js', 'test/**/*.js', 'Gruntfile.js'],
+			checkstyle: 'checkstyle.xml',
 			options: {
-				jshintrc: '../.jshintrc'
+				jshintrc: '.jshintrc'
 			}
 		},
-		testacular: {
+		karma: {
 			// shared conf
 			options: {
-				configFile: 'config/testacular.conf.js'
+				configFile: 'config/karma.conf.js'
 			},
 			// dev mode: autowatch through watch task
 			unit: {},
@@ -88,14 +89,14 @@ module.exports = function(grunt) {
 	// task loading
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-watch');
-	grunt.loadNpmTasks('gruntacular');
+	grunt.loadNpmTasks('grunt-karma');
 	grunt.loadNpmTasks('grunt-contrib-requirejs');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	
 	// task def
-	grunt.registerTask('build', ['clean', 'jshint', 'testacular:ci', 'copy', 'requirejs']);
+	grunt.registerTask('build', ['clean', 'jshint:all', 'karma:ci', 'copy', 'requirejs']);
     // ci task
-	grunt.registerTask('ci', ['clean', 'jshint', 'bower', 'testacular:ci']);
+	grunt.registerTask('ci', ['clean', 'jshint:all', 'bower', 'karma:ci']);
 
 };

@@ -1,3 +1,4 @@
+'use strict';
 var libpath = process.env.TEST_COV ? 'src-cov' : 'src',
 	assert = require('assert'),
 	RssAggregator = require('../../'+ libpath +'/core/rssAggregator')();
@@ -8,9 +9,8 @@ var testTopic = {
 	feeds : ['http://xseignard.github.com/atom.xml']
 };
 
-	
 describe('RssAggregator', function() {
-  
+
 	describe('#aggregate()', function() {
 		it('should call a callback', function(done) {
 			var callback = function(key, feed) {
@@ -20,7 +20,7 @@ describe('RssAggregator', function() {
 			RssAggregator.aggregate(testTopic, callback);
 		});
 	});
-	
+
 	describe('#createAggregatedFeed()', function() {
 		it('should return a rss feed with the right meta', function() {
 			var feed = RssAggregator.createAggregatedFeed(testTopic, []);
@@ -29,7 +29,7 @@ describe('RssAggregator', function() {
 			assert.equal(testTopic.description, feed.description);
 		});
 	});
-  
+
 	describe('#processProperty()', function() {
 		it('should return the given property', function() {
 			assert.equal('test', RssAggregator.processProperty('test'));

@@ -7,7 +7,7 @@ var getTests = function() {
 		extension = '.js',
 		tests = [];
 	
-	for (var file in window.__testacular__.files) {
+	for (var file in window.__karma__.files) {
 		if (file.indexOf(testDir) !== -1 && file.indexOf(testPattern) !== -1) { 
 			// make the test file path relative to the requirejs baseUrl as defined below
 			var test = file.replace('/base', '../../..');
@@ -43,5 +43,5 @@ require.config({
 
 // start the tests
 require(getTests(), function() {
-	window.__testacular__.start();
+	window.__karma__.start();
 });

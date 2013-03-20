@@ -1,3 +1,4 @@
+'use strict';
 // require
 var MongoClient = require('mongodb').MongoClient;
 
@@ -67,18 +68,18 @@ var topics = [
 		}, {
 			name : 'js',
 			description : 'html5/js feeds',
-			feeds : [ 
-					'http://howtonode.org/feed.xml', 
+			feeds : [
+					'http://howtonode.org/feed.xml',
 					'http://feeds.feedburner.com/html5rocks',
 					'http://badassjs.com/rss']
 		} ];
 
 MongoClient.connect(uri, function(err, db) {
-	db.collection('topics', function(err, collection) {		
+	db.collection('topics', function(err, collection) {
 		// remove the collection (if existing)
 		collection.remove({},function(err, removed){});
 		// create it
-		collection.insert(topics, {safe : true}, 
+		collection.insert(topics, {safe : true},
 			function(err, result) {
 				if (err) {
 					console.log('Something went wrong');

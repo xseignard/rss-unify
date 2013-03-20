@@ -1,3 +1,4 @@
+'use strict';
 var libpath = process.env.TEST_COV ? 'src-cov' : 'src',
     assert = require('assert'),
 	CacheService = require('../../'+ libpath +'/core/cacheService');
@@ -12,9 +13,9 @@ var testTopics = [
 
 // simple redis mock
 var redisMock = require('../mocks/store.mock');
-	
+
 describe('Cache', function() {
-  
+
 	describe('#cache()', function() {
 		it('should store the topic in cache with the following key: ' + testTopics[0].name, function(done) {
 			var cacheService = new CacheService(redisMock);
