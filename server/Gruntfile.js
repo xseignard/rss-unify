@@ -20,7 +20,7 @@ module.exports = function(grunt) {
 		},
 		simplemocha: {
 			options: {
-				reporter: 'xunit-file'
+				reporter: 'mocha-cobertura-reporter'
 			},
 			all: { src: 'test/**/*.test.js' }
 		}
