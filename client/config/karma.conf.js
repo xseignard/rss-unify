@@ -25,6 +25,12 @@ var files = [
   // files are now accessible from the browser, load them with require
   'test/main.js'
 ];
+preprocessors = {
+	'src/**/*.js': 'coverage'
+};
+
+// 
+var reporters = ['coverage'];
 
 // run tests on the following browsers
 var browsers = ['Chrome'];

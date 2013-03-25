@@ -29,9 +29,14 @@ module.exports = function(grunt) {
 			ci: {
 				singleRun: true,
 				browsers: ['PhantomJS'],
-				reporters: ['dots', 'junit'],
+				reporters: ['dots', 'junit', 'coverage'],
 				junitReporter: {
 					outputFile: 'xunit.xml'
+				},
+				coverageReporter: {
+					type: 'cobertura',
+					dir: 'coverage',
+					file: 'coverage.xml'
 				}
 			}
 		},
