@@ -2,7 +2,10 @@
 module.exports = function(grunt) {
 	
 	// env var for xunit output
-	(function() {process.env.XUNIT_FILE = 'reports/xunit.xml';} ());
+	(function() {
+		require('fs').mkdirSync('./reports');
+		process.env.XUNIT_FILE = 'reports/xunit.xml';
+	}());
 	
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
