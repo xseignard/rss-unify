@@ -32,6 +32,7 @@ module.exports = function(grunt) {
 		var done = this.async();
 
 		var runCmd = function(item, callback) {
+			grunt.log.write(item);
 			var cmd = exec(item);
 			cmd.stdout.on('data', function(data) {
 				grunt.log.write(data);
