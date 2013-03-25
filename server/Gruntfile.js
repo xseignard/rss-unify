@@ -1,6 +1,9 @@
 'use strict';
 module.exports = function(grunt) {
-
+	
+	// env var for xunit output
+	(function() {process.env.XUNIT_FILE = 'reports/xunit.xml';} ());
+	
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
 		meta: {
@@ -25,7 +28,7 @@ module.exports = function(grunt) {
 			all: { src: 'test/**/*.test.js' }
 		}
 	});
-	
+
 	// coverage task
 	grunt.registerTask('coverage', 'Generate coverage output', function() {
 		var exec = require('child_process').exec;
