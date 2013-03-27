@@ -1,5 +1,32 @@
 module.exports = function(grunt) {
 
+	// remove report dir if exists
+	(function() {
+		require('child_process').exec('rm -rf reports');
+	}());
+
+	// run a custom shell command
+	var runCmd = function(cmd, done) {
+		var exec = require('child_process').exec;
+		// the cmd runner
+		var run = function(item, callback) {
+			grunt.log.writeln(item);
+			var cmd = exec(item);
+			cmd.stdout.on('data', function(data) {
+				grunt.log.write(data);
+			});
+			cmd.stderr.on('data', function(data) {
+				grunt.log.errorlns(data);
+			});
+			cmd.on('exit', function(code) {
+				if (code !== 0) throw new Error(item + ' failed');
+				callback();
+			});
+		};
+		// finally run the given cmd
+		run(cmd, done);
+	};
+
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
 		meta: {
@@ -76,24 +103,12 @@ module.exports = function(grunt) {
 	
 	// bower install task
 	grunt.registerTask('bower', 'Install bower dependencies', function() {
-		var exec = require('child_process').exec;
-		var done = this.async();
-
-		var runCmd = function(item, callback) {
-			var cmd = exec(item);
-			cmd.stdout.on('data', function(data) {
-				grunt.log.write(data);
-			});
-			cmd.stderr.on('data', function(data) {
-				grunt.log.errorlns(data);
-			});
-			cmd.on('exit', function(code) {
-				if (code !== 0) throw new Error(item + ' failed');
-				callback();
-			});
-		};
-
-		runCmd('bower install', done);
+		runCmd('bower install', this.async());
+	});
+	
+	// checkstyle task
+	grunt.registerTask('checkstyle', 'Generate checkstyle report', function() {
+		runCmd('cd config;make checkstyle', this.async());
 	});
 
 	// task loading
@@ -107,6 +122,6 @@ module.exports = function(grunt) {
 	// task def
 	grunt.registerTask('build', ['clean', 'jshint:all', 'karma:ci', 'copy', 'requirejs']);
     // ci task
-	grunt.registerTask('ci', ['clean', 'jshint:all', 'bower', 'karma:ci']);
+	grunt.registerTask('ci', ['clean', 'jshint:all', 'checkstyle', 'bower', 'karma:ci']);
 
 };

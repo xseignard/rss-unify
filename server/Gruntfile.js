@@ -1,19 +1,18 @@
 'use strict';
 module.exports = function(grunt) {
 	
-	// env var for xunit output
+	// remove report dir if exists, and set required env vars
 	(function() {
-		require('fs').mkdirSync('./reports');
 		process.env.XUNIT_FILE = 'reports/xunit.xml';
+		require('child_process').exec('rm -rf reports');
 	}());
 	
 	// run a custom shell command
-	var runCmd = function(cmd) {
+	var runCmd = function(cmd, done) {
 		var exec = require('child_process').exec;
-		var done = this.async();
 		// the cmd runner
 		var run = function(item, callback) {
-			grunt.log.write(item);
+			grunt.log.writeln(item);
 			var cmd = exec(item);
 			cmd.stdout.on('data', function(data) {
 				grunt.log.write(data);
@@ -42,7 +41,6 @@ module.exports = function(grunt) {
 		},
 		jshint: {
 			all: ['src/**/*.js', 'test/**/*.js', 'Gruntfile.js'],
-			checkstyle: 'checkstyle.xml',
 			options: {
 				jshintrc: '.jshintrc'
 			}
@@ -57,12 +55,12 @@ module.exports = function(grunt) {
 
 	// coverage task
 	grunt.registerTask('coverage', 'Generate coverage report', function() {
-		runCmd('cd config;make coverage');
+		runCmd('cd config;make coverage', this.async());
 	});
 	
 	// checkstyle task
 	grunt.registerTask('checkstyle', 'Generate checkstyle report', function() {
-		runCmd('cd config;make checkstyle');
+		runCmd('cd config;make checkstyle', this.async());
 	});
 
 	// task loading
