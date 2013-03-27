@@ -52,6 +52,7 @@ var TopicsRoutes = function(repo, cacheService) {
 				res.status(404).send({error: 'Feed not found'});
 			}
 			else {
+				res.set('Content-Type', 'text/xml');
 				res.send(feed);
 			}
 		});
