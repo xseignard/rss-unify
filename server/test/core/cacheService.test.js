@@ -1,7 +1,6 @@
 'use strict';
-var libpath = process.env.TEST_COV ? 'src-cov' : 'src',
-    assert = require('assert'),
-	CacheService = require('../../'+ libpath +'/core/cacheService');
+var assert = require('assert'),
+	CacheService = require('../../src/core/cacheService');
 
 var testTopics = [
 	{

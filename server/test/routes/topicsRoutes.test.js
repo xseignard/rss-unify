@@ -1,7 +1,6 @@
 'use strict';
-var libpath = process.env.TEST_COV ? 'src-cov' : 'src',
-    assert = require('assert'),
-	TopicsRoutes = require('../../'+ libpath +'/routes/topicsRoutes'),
+var assert = require('assert'),
+	TopicsRoutes = require('../../src/routes/topicsRoutes'),
 	// simple repo mock
 	repo = require('../mocks/repo.mock'),
 	// simple store mock

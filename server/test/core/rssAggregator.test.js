@@ -1,7 +1,6 @@
 'use strict';
-var libpath = process.env.TEST_COV ? 'src-cov' : 'src',
-	assert = require('assert'),
-	RssAggregator = require('../../'+ libpath +'/core/rssAggregator')();
+var assert = require('assert'),
+	RssAggregator = require('../../src/core/rssAggregator')();
 
 var testTopic = {
 	name : 'js',

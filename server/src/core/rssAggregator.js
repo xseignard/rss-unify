@@ -46,7 +46,6 @@ var RssAggregator = function(){
 	 */
 	var _parseAndProcessFeed = function(feedUrl, items, callback) {
 		var now = new Date();
-		var item;
 		// when parsing is finished, iterate over articles to store them in an array of all articles of all streams
 		feedparser.parseUrl(feedUrl)
 		.on('complete', function onComplete(meta, articles) {
